@@ -1,29 +1,39 @@
+
+import javax.swing.JOptionPane;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
 //package CMSC13_Game;
-
 /**
  *
- * @author Nico Dela Cruz
+ * @author Nico Dela Cruz, Jarred Acedillo
  */
 public class MainForm extends javax.swing.JFrame {
+
+    //global variables with base values
     boolean audio = true;
+    int tool1Charge = 0, tool2Charge = 0, attempts = 3;
 
     /**
      * Creates new form MainForm
      */
     public MainForm() {
         initComponents();
+
+        //display login screen initially
         desktopScreen.setVisible(false);
         gameScreen.setVisible(false);
         userInfo.setVisible(false);
         gameOver.setVisible(false);
         instructionsScreen.setVisible(false);
         loginScreen.setVisible(true);
-        
+
+        //reflect necessary information on screen
+        attemptsLabel.setText(Integer.toString(attempts));
+
     }
 
     /**
@@ -405,7 +415,7 @@ public class MainForm extends javax.swing.JFrame {
                                         .addComponent(jLabel11)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                             .addGroup(desktopScreenLayout.createSequentialGroup()
-                                .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, 85, Short.MAX_VALUE)
+                                .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, 110, Short.MAX_VALUE)
                                 .addGap(444, 444, 444)))
                         .addGroup(desktopScreenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, desktopScreenLayout.createSequentialGroup()
@@ -441,7 +451,7 @@ public class MainForm extends javax.swing.JFrame {
                     .addGroup(desktopScreenLayout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jLabel11)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 40, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 42, Short.MAX_VALUE)
                         .addComponent(jLabel2)
                         .addGap(13, 13, 13)
                         .addComponent(jLabel4)
@@ -535,6 +545,22 @@ public class MainForm extends javax.swing.JFrame {
         currentQuestionOutOfTotalLabel.setFont(new java.awt.Font("Perpetua Titling MT", 1, 16)); // NOI18N
         currentQuestionOutOfTotalLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         currentQuestionOutOfTotalLabel.setText("Theoretical - question 01 out of 04");
+
+        tool1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/Icons/hacker-icon.png"))); // NOI18N
+        tool1.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        tool1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tool1ActionPerformed(evt);
+            }
+        });
+
+        tool2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/Icons/stack-overflow-icon.png"))); // NOI18N
+        tool2.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        tool2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tool2ActionPerformed(evt);
+            }
+        });
 
         correctAnswersLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         correctAnswersLabel.setText("Correct Answers: 0/4");
@@ -1028,9 +1054,6 @@ public class MainForm extends javax.swing.JFrame {
         });
 
         jLabel37.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/Icons/logo_small.png"))); // NOI18N
-        jLabel37.setMaximumSize(new java.awt.Dimension(32, 32));
-        jLabel37.setMinimumSize(new java.awt.Dimension(32, 32));
-        jLabel37.setPreferredSize(new java.awt.Dimension(32, 32));
 
         soundBtn4.setBackground(new java.awt.Color(51, 255, 255));
         soundBtn4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/Icons/sound-on.png"))); // NOI18N
@@ -1078,14 +1101,13 @@ public class MainForm extends javax.swing.JFrame {
                                 .addGap(18, 18, 18))))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, instructionsScreenLayout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jLabel37, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel37)
                         .addGap(27, 27, 27)))
                 .addGroup(instructionsScreenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(instructionsScreenLayout.createSequentialGroup()
                         .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap(46, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, instructionsScreenLayout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(soundBtn4, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(58, 58, 58))))
         );
@@ -1244,13 +1266,9 @@ public class MainForm extends javax.swing.JFrame {
                         .addComponent(jLabel39)
                         .addGap(27, 27, 27)))
                 .addGroup(loginScreenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(loginScreenLayout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(soundBtn5, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(80, 80, 80))
-                    .addGroup(loginScreenLayout.createSequentialGroup()
-                        .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, 315, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(69, Short.MAX_VALUE))))
+                    .addComponent(soundBtn5, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, 315, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(71, Short.MAX_VALUE))
         );
 
         jLayeredPane1.setLayer(desktopScreen, javax.swing.JLayeredPane.DEFAULT_LAYER);
@@ -1339,7 +1357,15 @@ public class MainForm extends javax.swing.JFrame {
 
     private void exitBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exitBtnActionPerformed
         // TODO add your handling code here:
-        System.exit(0);
+        int userInput = JOptionPane.showConfirmDialog(null, "Are you sure you want to exit?",
+                "Exit Game",
+                JOptionPane.YES_NO_OPTION,
+                JOptionPane.QUESTION_MESSAGE);
+        if (userInput == JOptionPane.YES_OPTION) {
+            System.exit(0);
+        } else if (userInput == JOptionPane.NO_OPTION) {
+            // do nothing
+        }
     }//GEN-LAST:event_exitBtnActionPerformed
 
     private void userBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_userBtnActionPerformed
@@ -1364,23 +1390,33 @@ public class MainForm extends javax.swing.JFrame {
 
     private void startBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_startBtnActionPerformed
         // TODO add your handling code here:
-        desktopScreen.setVisible(false);
-        gameScreen.setVisible(true);
-        userInfo.setVisible(false);
-        gameOver.setVisible(false);
-        instructionsScreen.setVisible(false);
-        loginScreen.setVisible(false);
+        if (attempts == 0) {
+            JOptionPane.showMessageDialog(null,
+                    "You do not have any attempts left.",
+                    "No more attemps!",
+                    JOptionPane.WARNING_MESSAGE);
+        } else {
+            attempts--;
+            attemptsLabel.setText(Integer.toString(attempts));
+            desktopScreen.setVisible(false);
+            gameScreen.setVisible(true);
+            userInfo.setVisible(false);
+            gameOver.setVisible(false);
+            instructionsScreen.setVisible(false);
+            loginScreen.setVisible(false);
+        }
     }//GEN-LAST:event_startBtnActionPerformed
 
     private void soundBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_soundBtnActionPerformed
         // TODO add your handling code here:
-        if(audio == true){
+        if (audio == true) {
             //turn background music off
             audio = false;
             soundBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/Icons/sound-off.png")));
             soundBtn2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/Icons/sound-off.png")));
             soundBtn3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/Icons/sound-off.png")));
             soundBtn4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/Icons/sound-off.png")));
+            soundBtn5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/Icons/sound-off.png")));
         } else {
             //turn background music on
             audio = true;
@@ -1388,28 +1424,38 @@ public class MainForm extends javax.swing.JFrame {
             soundBtn2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/Icons/sound-on.png")));
             soundBtn3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/Icons/sound-on.png")));
             soundBtn4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/Icons/sound-on.png")));
+            soundBtn5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/Icons/sound-on.png")));
         }
     }//GEN-LAST:event_soundBtnActionPerformed
 
     private void backBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backBtnActionPerformed
         // TODO add your handling code here:
-        desktopScreen.setVisible(true);
-        gameScreen.setVisible(false);
-        userInfo.setVisible(false);
-        gameOver.setVisible(false);
-        instructionsScreen.setVisible(false);
-        loginScreen.setVisible(false);
+        int userInput = JOptionPane.showConfirmDialog(null, "Are you sure you want to go back? Returning to the desktop screen will not give you your attempt back.",
+                "Return to Desktop Screen",
+                JOptionPane.YES_NO_OPTION,
+                JOptionPane.QUESTION_MESSAGE);
+        if (userInput == JOptionPane.YES_OPTION) {
+            desktopScreen.setVisible(true);
+            gameScreen.setVisible(false);
+            userInfo.setVisible(false);
+            gameOver.setVisible(false);
+            instructionsScreen.setVisible(false);
+            loginScreen.setVisible(false);
+        } else if (userInput == JOptionPane.NO_OPTION) {
+            // do nothing
+        }
     }//GEN-LAST:event_backBtnActionPerformed
 
     private void soundBtn2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_soundBtn2ActionPerformed
         // TODO add your handling code here:
-        if(audio == true){
+        if (audio == true) {
             //turn background music off
             audio = false;
             soundBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/Icons/sound-off.png")));
             soundBtn2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/Icons/sound-off.png")));
             soundBtn3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/Icons/sound-off.png")));
             soundBtn4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/Icons/sound-off.png")));
+            soundBtn5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/Icons/sound-off.png")));
         } else {
             //turn background music on
             audio = true;
@@ -1417,6 +1463,7 @@ public class MainForm extends javax.swing.JFrame {
             soundBtn2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/Icons/sound-on.png")));
             soundBtn3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/Icons/sound-on.png")));
             soundBtn4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/Icons/sound-on.png")));
+            soundBtn5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/Icons/sound-on.png")));
         }
     }//GEN-LAST:event_soundBtn2ActionPerformed
 
@@ -1461,13 +1508,14 @@ public class MainForm extends javax.swing.JFrame {
 
     private void soundBtn3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_soundBtn3ActionPerformed
         // TODO add your handling code here:
-        if(audio == true){
+        if (audio == true) {
             //turn background music off
             audio = false;
             soundBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/Icons/sound-off.png")));
             soundBtn2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/Icons/sound-off.png")));
             soundBtn3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/Icons/sound-off.png")));
             soundBtn4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/Icons/sound-off.png")));
+            soundBtn5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/Icons/sound-off.png")));
         } else {
             //turn background music on
             audio = true;
@@ -1475,18 +1523,20 @@ public class MainForm extends javax.swing.JFrame {
             soundBtn2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/Icons/sound-on.png")));
             soundBtn3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/Icons/sound-on.png")));
             soundBtn4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/Icons/sound-on.png")));
+            soundBtn5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/Icons/sound-on.png")));
         }
     }//GEN-LAST:event_soundBtn3ActionPerformed
 
     private void soundBtn4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_soundBtn4ActionPerformed
         // TODO add your handling code here:
-        if(audio == true){
+        if (audio == true) {
             //turn background music off
             audio = false;
             soundBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/Icons/sound-off.png")));
             soundBtn2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/Icons/sound-off.png")));
             soundBtn3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/Icons/sound-off.png")));
             soundBtn4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/Icons/sound-off.png")));
+            soundBtn5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/Icons/sound-off.png")));
         } else {
             //turn background music on
             audio = true;
@@ -1494,6 +1544,7 @@ public class MainForm extends javax.swing.JFrame {
             soundBtn2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/Icons/sound-on.png")));
             soundBtn3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/Icons/sound-on.png")));
             soundBtn4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/Icons/sound-on.png")));
+            soundBtn5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/Icons/sound-on.png")));
         }
     }//GEN-LAST:event_soundBtn4ActionPerformed
 
@@ -1504,13 +1555,14 @@ public class MainForm extends javax.swing.JFrame {
 
     private void soundBtn5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_soundBtn5ActionPerformed
         // TODO add your handling code here:
-        if(audio == true){
+        if (audio == true) {
             //turn background music off
             audio = false;
             soundBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/Icons/sound-off.png")));
             soundBtn2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/Icons/sound-off.png")));
             soundBtn3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/Icons/sound-off.png")));
             soundBtn4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/Icons/sound-off.png")));
+            soundBtn5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/Icons/sound-off.png")));
         } else {
             //turn background music on
             audio = true;
@@ -1518,6 +1570,7 @@ public class MainForm extends javax.swing.JFrame {
             soundBtn2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/Icons/sound-on.png")));
             soundBtn3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/Icons/sound-on.png")));
             soundBtn4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/Icons/sound-on.png")));
+            soundBtn5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/Icons/sound-on.png")));
         }
     }//GEN-LAST:event_soundBtn5ActionPerformed
 
@@ -1530,6 +1583,40 @@ public class MainForm extends javax.swing.JFrame {
         instructionsScreen.setVisible(false);
         loginScreen.setVisible(false);
     }//GEN-LAST:event_enterBtnActionPerformed
+
+    private void tool1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tool1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tool1ActionPerformed
+
+    private void tool2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tool2ActionPerformed
+        // TODO add your handling code here:
+        if (tool2Charge == 0) {
+            JOptionPane.showMessageDialog(null,
+                    "You do not have any charges available for this tool!",
+                    "No Charges Left!",
+                    JOptionPane.WARNING_MESSAGE);
+        } else {
+            tool2Charge--;
+            JOptionPane.showMessageDialog(null, "Thanks to the help of the Stack Overflow community, the answer to this problem has been provided!");
+            if (true) { //if answer is in choice A, disable buttons B,C,D
+                choiceB.setEnabled(false);
+                choiceC.setEnabled(false);
+                choiceD.setEnabled(false);
+            } else if (true) { //if answer is in choice B, disable A,C,D
+                choiceA.setEnabled(false);
+                choiceC.setEnabled(false);
+                choiceD.setEnabled(false);
+            } else if (true) { //if answer is in choice C, disable A,B,D
+                choiceA.setEnabled(false);
+                choiceB.setEnabled(false);
+                choiceD.setEnabled(false);
+            } else { //if answer is in choice D, disable A,B,C
+                choiceA.setEnabled(false);
+                choiceB.setEnabled(false);
+                choiceC.setEnabled(false);
+            }
+        }
+    }//GEN-LAST:event_tool2ActionPerformed
 
     /**
      * @param args the command line arguments
