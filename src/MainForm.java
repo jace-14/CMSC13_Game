@@ -17,12 +17,12 @@ public class MainForm extends javax.swing.JFrame {
      */
     public MainForm() {
         initComponents();
-        desktopScreen.setVisible(true);
+        desktopScreen.setVisible(false);
         gameScreen.setVisible(false);
         userInfo.setVisible(false);
         gameOver.setVisible(false);
         instructionsScreen.setVisible(false);
-        loginScreen.setVisible(false);
+        loginScreen.setVisible(true);
         
     }
 
@@ -105,9 +105,40 @@ public class MainForm extends javax.swing.JFrame {
         jLabel34 = new javax.swing.JLabel();
         jLabel35 = new javax.swing.JLabel();
         jLabel26 = new javax.swing.JLabel();
+        soundBtn3 = new javax.swing.JButton();
         gameOver = new javax.swing.JPanel();
+        jLabel27 = new javax.swing.JLabel();
+        jLabel28 = new javax.swing.JLabel();
+        jLabel36 = new javax.swing.JLabel();
+        jobLabel2 = new javax.swing.JLabel();
+        jLabel29 = new javax.swing.JLabel();
+        playAgainBtn = new javax.swing.JButton();
+        exitBtn2 = new javax.swing.JButton();
         instructionsScreen = new javax.swing.JPanel();
+        jPanel6 = new javax.swing.JPanel();
+        jLabel30 = new javax.swing.JLabel();
+        jPanel7 = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTextArea1 = new javax.swing.JTextArea();
+        backBtn3 = new javax.swing.JButton();
+        jLabel37 = new javax.swing.JLabel();
+        soundBtn4 = new javax.swing.JButton();
         loginScreen = new javax.swing.JPanel();
+        jPanel8 = new javax.swing.JPanel();
+        jLabel38 = new javax.swing.JLabel();
+        backBtn4 = new javax.swing.JButton();
+        jLabel39 = new javax.swing.JLabel();
+        soundBtn5 = new javax.swing.JButton();
+        jPanel9 = new javax.swing.JPanel();
+        jLabel40 = new javax.swing.JLabel();
+        jLabel42 = new javax.swing.JLabel();
+        jLabel44 = new javax.swing.JLabel();
+        jLabel48 = new javax.swing.JLabel();
+        jTextField1 = new javax.swing.JTextField();
+        jTextField2 = new javax.swing.JTextField();
+        jTextField3 = new javax.swing.JTextField();
+        jTextField4 = new javax.swing.JTextField();
+        enterBtn = new javax.swing.JButton();
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -484,10 +515,10 @@ public class MainForm extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(questionLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(questionLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 364, Short.MAX_VALUE)
                 .addContainerGap())
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(154, 154, 154)
+                .addGap(152, 152, 152)
                 .addComponent(showImageBtn)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -506,7 +537,7 @@ public class MainForm extends javax.swing.JFrame {
         currentQuestionOutOfTotalLabel.setText("Theoretical - question 01 out of 04");
 
         correctAnswersLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        correctAnswersLabel.setText("Correct Answers: 2/4");
+        correctAnswersLabel.setText("Correct Answers: 0/4");
 
         backBtn.setText("Back");
         backBtn.addActionListener(new java.awt.event.ActionListener() {
@@ -621,14 +652,13 @@ public class MainForm extends javax.swing.JFrame {
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(soundBtn2, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(8, 8, 8)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(gameScreenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(showChoiceD, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(showChoiceC, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(40, 40, 40))
         );
 
-        userInfo.setBackground(new java.awt.Color(0, 255, 255));
+        userInfo.setBackground(new java.awt.Color(51, 255, 255));
 
         jPanel4.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -655,9 +685,6 @@ public class MainForm extends javax.swing.JFrame {
         );
 
         jLabel21.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/avatar.png"))); // NOI18N
-        jLabel21.setMaximumSize(new java.awt.Dimension(128, 128));
-        jLabel21.setMinimumSize(new java.awt.Dimension(128, 128));
-        jLabel21.setPreferredSize(new java.awt.Dimension(128, 128));
 
         usernameLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         usernameLabel.setText("Username");
@@ -722,9 +749,6 @@ public class MainForm extends javax.swing.JFrame {
         jLabel35.setPreferredSize(new java.awt.Dimension(47, 14));
 
         jLabel26.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/Icons/logo_small.png"))); // NOI18N
-        jLabel26.setMaximumSize(new java.awt.Dimension(32, 32));
-        jLabel26.setMinimumSize(new java.awt.Dimension(32, 32));
-        jLabel26.setPreferredSize(new java.awt.Dimension(32, 32));
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -788,7 +812,7 @@ public class MainForm extends javax.swing.JFrame {
                     .addComponent(jLabel25)
                     .addComponent(attemptsLabel))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 23, Short.MAX_VALUE)
-                .addComponent(jLabel26, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jLabel26)
                 .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -804,33 +828,49 @@ public class MainForm extends javax.swing.JFrame {
                 .addGap(66, 66, 66))
         );
 
+        soundBtn3.setBackground(new java.awt.Color(51, 255, 255));
+        soundBtn3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/Icons/sound-on.png"))); // NOI18N
+        soundBtn3.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        soundBtn3.setBorderPainted(false);
+        soundBtn3.setContentAreaFilled(false);
+        soundBtn3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                soundBtn3ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout userInfoLayout = new javax.swing.GroupLayout(userInfo);
         userInfo.setLayout(userInfoLayout);
         userInfoLayout.setHorizontalGroup(
             userInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(userInfoLayout.createSequentialGroup()
-                .addGap(188, 188, 188)
-                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, userInfoLayout.createSequentialGroup()
-                .addGroup(userInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(userInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(userInfoLayout.createSequentialGroup()
-                        .addGap(49, 49, 49)
-                        .addGroup(userInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jLabel21, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(usernameLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addGap(188, 188, 188)
+                        .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(soundBtn3, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(userInfoLayout.createSequentialGroup()
-                        .addGap(72, 72, 72)
-                        .addComponent(backBtn2, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 36, Short.MAX_VALUE)
-                .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(userInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(userInfoLayout.createSequentialGroup()
+                                .addGap(49, 49, 49)
+                                .addGroup(userInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jLabel21, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(usernameLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                            .addGroup(userInfoLayout.createSequentialGroup()
+                                .addGap(72, 72, 72)
+                                .addComponent(backBtn2, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 36, Short.MAX_VALUE)
+                        .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(50, 50, 50))
         );
         userInfoLayout.setVerticalGroup(
             userInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(userInfoLayout.createSequentialGroup()
                 .addGap(33, 33, 33)
-                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(userInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(soundBtn3, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGroup(userInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(userInfoLayout.createSequentialGroup()
                         .addGap(72, 72, 72)
@@ -845,37 +885,372 @@ public class MainForm extends javax.swing.JFrame {
                 .addContainerGap(97, Short.MAX_VALUE))
         );
 
+        gameOver.setBackground(new java.awt.Color(51, 255, 255));
+
+        jLabel27.setFont(new java.awt.Font("Felix Titling", 1, 60)); // NOI18N
+        jLabel27.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel27.setText("Game Over");
+        jLabel27.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+
+        jLabel28.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel28.setText("Highest Occupation Attained:");
+
+        jLabel36.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        jLabel36.setText("- - -");
+        jLabel36.setMinimumSize(new java.awt.Dimension(47, 14));
+        jLabel36.setPreferredSize(new java.awt.Dimension(47, 14));
+
+        jobLabel2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jobLabel2.setText("College Graduate");
+
+        jLabel29.setFont(new java.awt.Font("DialogInput", 1, 24)); // NOI18N
+        jLabel29.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel29.setText("Do you want to play again?");
+        jLabel29.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+
+        playAgainBtn.setText("Yes");
+        playAgainBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                playAgainBtnActionPerformed(evt);
+            }
+        });
+
+        exitBtn2.setText("No");
+        exitBtn2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                exitBtn2ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout gameOverLayout = new javax.swing.GroupLayout(gameOver);
         gameOver.setLayout(gameOverLayout);
         gameOverLayout.setHorizontalGroup(
             gameOverLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 640, Short.MAX_VALUE)
+            .addGroup(gameOverLayout.createSequentialGroup()
+                .addGroup(gameOverLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(gameOverLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(gameOverLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel27, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel29, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addGroup(gameOverLayout.createSequentialGroup()
+                        .addGap(90, 90, 90)
+                        .addComponent(jLabel28)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel36, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jobLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 98, Short.MAX_VALUE)))
+                .addContainerGap())
+            .addGroup(gameOverLayout.createSequentialGroup()
+                .addGap(157, 157, 157)
+                .addComponent(playAgainBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(74, 74, 74)
+                .addComponent(exitBtn2, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         gameOverLayout.setVerticalGroup(
             gameOverLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 480, Short.MAX_VALUE)
+            .addGroup(gameOverLayout.createSequentialGroup()
+                .addGap(46, 46, 46)
+                .addComponent(jLabel27)
+                .addGap(39, 39, 39)
+                .addGroup(gameOverLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel28)
+                    .addComponent(jLabel36, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jobLabel2))
+                .addGap(46, 46, 46)
+                .addComponent(jLabel29)
+                .addGap(32, 32, 32)
+                .addGroup(gameOverLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(playAgainBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(exitBtn2, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(158, Short.MAX_VALUE))
         );
+
+        instructionsScreen.setBackground(new java.awt.Color(51, 255, 255));
+
+        jPanel6.setBackground(new java.awt.Color(255, 255, 255));
+
+        jLabel30.setFont(new java.awt.Font("Sitka Text", 1, 18)); // NOI18N
+        jLabel30.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel30.setText("How to Play");
+
+        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
+        jPanel6.setLayout(jPanel6Layout);
+        jPanel6Layout.setHorizontalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel6Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel30, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        jPanel6Layout.setVerticalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel6Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel30, javax.swing.GroupLayout.DEFAULT_SIZE, 28, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+
+        jPanel7.setBackground(new java.awt.Color(255, 255, 255));
+
+        jTextArea1.setColumns(20);
+        jTextArea1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jTextArea1.setLineWrap(true);
+        jTextArea1.setRows(5);
+        jTextArea1.setText("Hello user! I am Morgana, the company’s state-of-the-art testing system. You will be taking the test for the junior developer position. There will be three main levels or three main positions: 1. Junior Developer Position, 2. Mid-level Developer Position, and 3. Senior Developer Position. The test will consist of two parts, the theoretical part, and the applied (programming) part. In the theoretical part, there will be seven categories in total, and in the applied part, there will be four categories in total. At the first level, you will be required to choose two categories in the theoretical part, and one category in the applied part. At the second level, you will be required to choose three categories in the theoretical part, and two categories in the applied part. At the third level, you will be required to choose four categories in the theoretical part, and three categories in the applied part. Each category in both the theoretical and applied part will consist of two multiple-choice questions. The score in-game will correspond to the final “position” that you have reached. You will be able to see what position you currently are in and how many attempts you have left for the promotion in the user information program.");
+        jTextArea1.setWrapStyleWord(true);
+        jScrollPane1.setViewportView(jTextArea1);
+
+        javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
+        jPanel7.setLayout(jPanel7Layout);
+        jPanel7Layout.setHorizontalGroup(
+            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel7Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 490, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        jPanel7Layout.setVerticalGroup(
+            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel7Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 318, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+
+        backBtn3.setText("Back");
+        backBtn3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                backBtn3ActionPerformed(evt);
+            }
+        });
+
+        jLabel37.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/Icons/logo_small.png"))); // NOI18N
+        jLabel37.setMaximumSize(new java.awt.Dimension(32, 32));
+        jLabel37.setMinimumSize(new java.awt.Dimension(32, 32));
+        jLabel37.setPreferredSize(new java.awt.Dimension(32, 32));
+
+        soundBtn4.setBackground(new java.awt.Color(51, 255, 255));
+        soundBtn4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/Icons/sound-on.png"))); // NOI18N
+        soundBtn4.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        soundBtn4.setBorderPainted(false);
+        soundBtn4.setContentAreaFilled(false);
+        soundBtn4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                soundBtn4ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout instructionsScreenLayout = new javax.swing.GroupLayout(instructionsScreen);
         instructionsScreen.setLayout(instructionsScreenLayout);
         instructionsScreenLayout.setHorizontalGroup(
             instructionsScreenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 640, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, instructionsScreenLayout.createSequentialGroup()
+                .addGroup(instructionsScreenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(instructionsScreenLayout.createSequentialGroup()
+                        .addGap(24, 24, 24)
+                        .addComponent(backBtn3, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(107, 107, 107)
+                        .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel37, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(instructionsScreenLayout.createSequentialGroup()
+                        .addContainerGap(18, Short.MAX_VALUE)
+                        .addComponent(soundBtn4, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(60, 60, 60))
         );
         instructionsScreenLayout.setVerticalGroup(
             instructionsScreenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 480, Short.MAX_VALUE)
+            .addGroup(instructionsScreenLayout.createSequentialGroup()
+                .addGroup(instructionsScreenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(instructionsScreenLayout.createSequentialGroup()
+                        .addGap(28, 28, 28)
+                        .addGroup(instructionsScreenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, instructionsScreenLayout.createSequentialGroup()
+                                .addComponent(backBtn3)
+                                .addGap(33, 33, 33))
+                            .addGroup(instructionsScreenLayout.createSequentialGroup()
+                                .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18))))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, instructionsScreenLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabel37, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(27, 27, 27)))
+                .addGroup(instructionsScreenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(instructionsScreenLayout.createSequentialGroup()
+                        .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(46, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, instructionsScreenLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(soundBtn4, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(58, 58, 58))))
+        );
+
+        loginScreen.setBackground(new java.awt.Color(51, 255, 255));
+
+        jPanel8.setBackground(new java.awt.Color(255, 255, 255));
+
+        jLabel38.setFont(new java.awt.Font("Sitka Text", 1, 18)); // NOI18N
+        jLabel38.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel38.setText("Login");
+
+        javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
+        jPanel8.setLayout(jPanel8Layout);
+        jPanel8Layout.setHorizontalGroup(
+            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel8Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel38, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        jPanel8Layout.setVerticalGroup(
+            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel8Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel38, javax.swing.GroupLayout.DEFAULT_SIZE, 28, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+
+        backBtn4.setText("Exit");
+        backBtn4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                backBtn4ActionPerformed(evt);
+            }
+        });
+
+        jLabel39.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/Icons/logo_small.png"))); // NOI18N
+
+        soundBtn5.setBackground(new java.awt.Color(51, 255, 255));
+        soundBtn5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/Icons/sound-on.png"))); // NOI18N
+        soundBtn5.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        soundBtn5.setBorderPainted(false);
+        soundBtn5.setContentAreaFilled(false);
+        soundBtn5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                soundBtn5ActionPerformed(evt);
+            }
+        });
+
+        jPanel9.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel9.setMaximumSize(new java.awt.Dimension(510, 340));
+        jPanel9.setMinimumSize(new java.awt.Dimension(510, 340));
+
+        jLabel40.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel40.setText("Name:");
+
+        jLabel42.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel42.setText("Age:");
+
+        jLabel44.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel44.setText("Gender:");
+
+        jLabel48.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel48.setText("Residence:");
+
+        enterBtn.setText("Enter");
+        enterBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                enterBtnActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
+        jPanel9.setLayout(jPanel9Layout);
+        jPanel9Layout.setHorizontalGroup(
+            jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel9Layout.createSequentialGroup()
+                .addContainerGap(81, Short.MAX_VALUE)
+                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel9Layout.createSequentialGroup()
+                        .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel40)
+                            .addComponent(jLabel48)
+                            .addComponent(jLabel44)
+                            .addComponent(jLabel42))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(59, 59, 59))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel9Layout.createSequentialGroup()
+                        .addComponent(enterBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(188, 188, 188))))
+        );
+        jPanel9Layout.setVerticalGroup(
+            jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel9Layout.createSequentialGroup()
+                .addGap(43, 43, 43)
+                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel40)
+                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(29, 29, 29)
+                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel42)
+                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(35, 35, 35)
+                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel44)
+                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(25, 25, 25)
+                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel48)
+                    .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(32, 32, 32)
+                .addComponent(enterBtn)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout loginScreenLayout = new javax.swing.GroupLayout(loginScreen);
         loginScreen.setLayout(loginScreenLayout);
         loginScreenLayout.setHorizontalGroup(
             loginScreenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 640, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, loginScreenLayout.createSequentialGroup()
+                .addGroup(loginScreenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(loginScreenLayout.createSequentialGroup()
+                        .addGap(24, 24, 24)
+                        .addComponent(backBtn4, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(107, 107, 107)
+                        .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel39, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(loginScreenLayout.createSequentialGroup()
+                        .addContainerGap(45, Short.MAX_VALUE)
+                        .addComponent(soundBtn5, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(60, 60, 60))
         );
         loginScreenLayout.setVerticalGroup(
             loginScreenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 480, Short.MAX_VALUE)
+            .addGroup(loginScreenLayout.createSequentialGroup()
+                .addGroup(loginScreenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(loginScreenLayout.createSequentialGroup()
+                        .addGap(28, 28, 28)
+                        .addGroup(loginScreenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, loginScreenLayout.createSequentialGroup()
+                                .addComponent(backBtn4)
+                                .addGap(33, 33, 33))
+                            .addGroup(loginScreenLayout.createSequentialGroup()
+                                .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18))))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, loginScreenLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabel39)
+                        .addGap(27, 27, 27)))
+                .addGroup(loginScreenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(loginScreenLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(soundBtn5, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(80, 80, 80))
+                    .addGroup(loginScreenLayout.createSequentialGroup()
+                        .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, 315, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(69, Short.MAX_VALUE))))
         );
 
         jLayeredPane1.setLayer(desktopScreen, javax.swing.JLayeredPane.DEFAULT_LAYER);
@@ -1004,11 +1379,15 @@ public class MainForm extends javax.swing.JFrame {
             audio = false;
             soundBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/Icons/sound-off.png")));
             soundBtn2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/Icons/sound-off.png")));
+            soundBtn3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/Icons/sound-off.png")));
+            soundBtn4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/Icons/sound-off.png")));
         } else {
             //turn background music on
             audio = true;
             soundBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/Icons/sound-on.png")));
             soundBtn2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/Icons/sound-on.png")));
+            soundBtn3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/Icons/sound-on.png")));
+            soundBtn4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/Icons/sound-on.png")));
         }
     }//GEN-LAST:event_soundBtnActionPerformed
 
@@ -1029,11 +1408,15 @@ public class MainForm extends javax.swing.JFrame {
             audio = false;
             soundBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/Icons/sound-off.png")));
             soundBtn2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/Icons/sound-off.png")));
-        } else{
+            soundBtn3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/Icons/sound-off.png")));
+            soundBtn4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/Icons/sound-off.png")));
+        } else {
             //turn background music on
             audio = true;
             soundBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/Icons/sound-on.png")));
             soundBtn2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/Icons/sound-on.png")));
+            soundBtn3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/Icons/sound-on.png")));
+            soundBtn4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/Icons/sound-on.png")));
         }
     }//GEN-LAST:event_soundBtn2ActionPerformed
 
@@ -1050,6 +1433,103 @@ public class MainForm extends javax.swing.JFrame {
         instructionsScreen.setVisible(false);
         loginScreen.setVisible(false);
     }//GEN-LAST:event_backBtn2ActionPerformed
+
+    private void playAgainBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_playAgainBtnActionPerformed
+        // TODO add your handling code here:
+        desktopScreen.setVisible(true);
+        gameScreen.setVisible(false);
+        userInfo.setVisible(false);
+        gameOver.setVisible(false);
+        instructionsScreen.setVisible(false);
+        loginScreen.setVisible(false);
+    }//GEN-LAST:event_playAgainBtnActionPerformed
+
+    private void exitBtn2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exitBtn2ActionPerformed
+        // TODO add your handling code here:
+        System.exit(0);
+    }//GEN-LAST:event_exitBtn2ActionPerformed
+
+    private void backBtn3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backBtn3ActionPerformed
+        // TODO add your handling code here:
+        desktopScreen.setVisible(true);
+        gameScreen.setVisible(false);
+        userInfo.setVisible(false);
+        gameOver.setVisible(false);
+        instructionsScreen.setVisible(false);
+        loginScreen.setVisible(false);
+    }//GEN-LAST:event_backBtn3ActionPerformed
+
+    private void soundBtn3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_soundBtn3ActionPerformed
+        // TODO add your handling code here:
+        if(audio == true){
+            //turn background music off
+            audio = false;
+            soundBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/Icons/sound-off.png")));
+            soundBtn2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/Icons/sound-off.png")));
+            soundBtn3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/Icons/sound-off.png")));
+            soundBtn4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/Icons/sound-off.png")));
+        } else {
+            //turn background music on
+            audio = true;
+            soundBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/Icons/sound-on.png")));
+            soundBtn2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/Icons/sound-on.png")));
+            soundBtn3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/Icons/sound-on.png")));
+            soundBtn4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/Icons/sound-on.png")));
+        }
+    }//GEN-LAST:event_soundBtn3ActionPerformed
+
+    private void soundBtn4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_soundBtn4ActionPerformed
+        // TODO add your handling code here:
+        if(audio == true){
+            //turn background music off
+            audio = false;
+            soundBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/Icons/sound-off.png")));
+            soundBtn2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/Icons/sound-off.png")));
+            soundBtn3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/Icons/sound-off.png")));
+            soundBtn4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/Icons/sound-off.png")));
+        } else {
+            //turn background music on
+            audio = true;
+            soundBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/Icons/sound-on.png")));
+            soundBtn2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/Icons/sound-on.png")));
+            soundBtn3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/Icons/sound-on.png")));
+            soundBtn4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/Icons/sound-on.png")));
+        }
+    }//GEN-LAST:event_soundBtn4ActionPerformed
+
+    private void backBtn4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backBtn4ActionPerformed
+        // TODO add your handling code here:
+        System.exit(0);
+    }//GEN-LAST:event_backBtn4ActionPerformed
+
+    private void soundBtn5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_soundBtn5ActionPerformed
+        // TODO add your handling code here:
+        if(audio == true){
+            //turn background music off
+            audio = false;
+            soundBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/Icons/sound-off.png")));
+            soundBtn2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/Icons/sound-off.png")));
+            soundBtn3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/Icons/sound-off.png")));
+            soundBtn4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/Icons/sound-off.png")));
+        } else {
+            //turn background music on
+            audio = true;
+            soundBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/Icons/sound-on.png")));
+            soundBtn2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/Icons/sound-on.png")));
+            soundBtn3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/Icons/sound-on.png")));
+            soundBtn4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/Icons/sound-on.png")));
+        }
+    }//GEN-LAST:event_soundBtn5ActionPerformed
+
+    private void enterBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_enterBtnActionPerformed
+        // TODO add your handling code here:
+        desktopScreen.setVisible(true);
+        gameScreen.setVisible(false);
+        userInfo.setVisible(false);
+        gameOver.setVisible(false);
+        instructionsScreen.setVisible(false);
+        loginScreen.setVisible(false);
+    }//GEN-LAST:event_enterBtnActionPerformed
 
     /**
      * @param args the command line arguments
@@ -1092,6 +1572,8 @@ public class MainForm extends javax.swing.JFrame {
     private javax.swing.JLabel attemptsLabel;
     private javax.swing.JButton backBtn;
     private javax.swing.JButton backBtn2;
+    private javax.swing.JButton backBtn3;
+    private javax.swing.JButton backBtn4;
     private javax.swing.JButton choiceA;
     private javax.swing.JButton choiceB;
     private javax.swing.JButton choiceC;
@@ -1099,7 +1581,9 @@ public class MainForm extends javax.swing.JFrame {
     private javax.swing.JLabel correctAnswersLabel;
     private javax.swing.JLabel currentQuestionOutOfTotalLabel;
     private javax.swing.JPanel desktopScreen;
+    private javax.swing.JButton enterBtn;
     private javax.swing.JButton exitBtn;
+    private javax.swing.JButton exitBtn2;
     private javax.swing.JPanel gameOver;
     private javax.swing.JPanel gameScreen;
     private javax.swing.JLabel genderLabel;
@@ -1124,13 +1608,25 @@ public class MainForm extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel24;
     private javax.swing.JLabel jLabel25;
     private javax.swing.JLabel jLabel26;
+    private javax.swing.JLabel jLabel27;
+    private javax.swing.JLabel jLabel28;
+    private javax.swing.JLabel jLabel29;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel30;
     private javax.swing.JLabel jLabel31;
     private javax.swing.JLabel jLabel32;
     private javax.swing.JLabel jLabel33;
     private javax.swing.JLabel jLabel34;
     private javax.swing.JLabel jLabel35;
+    private javax.swing.JLabel jLabel36;
+    private javax.swing.JLabel jLabel37;
+    private javax.swing.JLabel jLabel38;
+    private javax.swing.JLabel jLabel39;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel40;
+    private javax.swing.JLabel jLabel42;
+    private javax.swing.JLabel jLabel44;
+    private javax.swing.JLabel jLabel48;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
@@ -1142,8 +1638,20 @@ public class MainForm extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
+    private javax.swing.JPanel jPanel6;
+    private javax.swing.JPanel jPanel7;
+    private javax.swing.JPanel jPanel8;
+    private javax.swing.JPanel jPanel9;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTextArea jTextArea1;
+    private javax.swing.JTextField jTextField1;
+    private javax.swing.JTextField jTextField2;
+    private javax.swing.JTextField jTextField3;
+    private javax.swing.JTextField jTextField4;
     private javax.swing.JLabel jobLabel;
+    private javax.swing.JLabel jobLabel2;
     private javax.swing.JPanel loginScreen;
+    private javax.swing.JButton playAgainBtn;
     private javax.swing.JLabel questionLabel;
     private javax.swing.JButton readMeBtn;
     private javax.swing.JButton showChoiceA;
@@ -1153,6 +1661,9 @@ public class MainForm extends javax.swing.JFrame {
     private javax.swing.JButton showImageBtn;
     private javax.swing.JButton soundBtn;
     private javax.swing.JButton soundBtn2;
+    private javax.swing.JButton soundBtn3;
+    private javax.swing.JButton soundBtn4;
+    private javax.swing.JButton soundBtn5;
     private javax.swing.JButton startBtn;
     private javax.swing.JButton sysFilesBtn;
     private javax.swing.JButton tool1;
