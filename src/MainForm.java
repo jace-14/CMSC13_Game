@@ -1396,14 +1396,23 @@ public class MainForm extends javax.swing.JFrame {
                     "No more attemps!",
                     JOptionPane.WARNING_MESSAGE);
         } else {
-            attempts--;
-            attemptsLabel.setText(Integer.toString(attempts));
-            desktopScreen.setVisible(false);
-            gameScreen.setVisible(true);
-            userInfo.setVisible(false);
-            gameOver.setVisible(false);
-            instructionsScreen.setVisible(false);
-            loginScreen.setVisible(false);
+            int userInput = JOptionPane.showConfirmDialog(null, "Use one attempt to take the test?",
+                    "Start Test",
+                    JOptionPane.YES_NO_OPTION,
+                    JOptionPane.QUESTION_MESSAGE);
+            if (userInput == JOptionPane.YES_OPTION) {
+                attempts--;
+                attemptsLabel.setText(Integer.toString(attempts));
+                desktopScreen.setVisible(false);
+                gameScreen.setVisible(true);
+                userInfo.setVisible(false);
+                gameOver.setVisible(false);
+                instructionsScreen.setVisible(false);
+                loginScreen.setVisible(false);
+            } else if (userInput == JOptionPane.NO_OPTION) {
+                // do nothing
+            }
+
         }
     }//GEN-LAST:event_startBtnActionPerformed
 
