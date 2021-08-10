@@ -7,11 +7,18 @@ public class Item {
     private final String choiceThree;
     private final String choiceFour;
     private final String correctChoice;
-    private final String imageFilename;
+    private final String questionImageFilename;
+    private final String choiceAImageFilename;
+    private final String choiceBImageFilename;
+    private final String choiceCImageFilename;
+    private final String choiceDImageFilename;
+    private final String category;
     private boolean isAnswered;
     
     public Item(String topic, String question, String choiceOne, String choiceTwo, String choiceThree,
-                String choiceFour, String correctChoice, String imageFilename) {
+                String choiceFour, String correctChoice, String questionImageFilename,
+                String choiceAImageFilename, String choiceBImageFilename, String choiceCImageFilename,
+                String choiceDImageFilename, String category) {
         this.topic = topic;
         this.question = question;
         this.choiceOne = choiceOne;
@@ -19,7 +26,12 @@ public class Item {
         this.choiceThree = choiceThree;
         this.choiceFour = choiceFour;
         this.correctChoice = correctChoice;
-        this.imageFilename = imageFilename;
+        this.questionImageFilename = questionImageFilename;
+        this.choiceAImageFilename = choiceAImageFilename;
+        this.choiceBImageFilename = choiceBImageFilename;
+        this.choiceCImageFilename = choiceCImageFilename;
+        this.choiceDImageFilename = choiceDImageFilename;
+        this.category = category;
         this.isAnswered = false;
     }
 
@@ -55,11 +67,31 @@ public class Item {
         return correctChoice;
     }
 
-    public String getImageFilename() {
-        return imageFilename;
+    public String getQuestionImageFilename() {
+        return questionImageFilename;
+    }
+    
+    public String getChoiceAImageFilename() {
+        return choiceAImageFilename;
+    }
+    
+    public String getChoiceBImageFilename() {
+        return choiceBImageFilename;
+    }
+    
+    public String getChoiceCImageFilename() {
+        return choiceCImageFilename;
+    }
+    
+    public String getChoiceDImageFilename() {
+        return choiceDImageFilename;
     }
 
     public boolean getIsAnswered() {
         return isAnswered;
+    }
+    
+    public String getCategory() {
+        return category;
     }
 }
