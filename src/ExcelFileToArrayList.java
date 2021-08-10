@@ -33,7 +33,13 @@ public class ExcelFileToArrayList {
         String choiceThree = null;
         String choiceFour = null;
         String correctChoice = null;
-        String imageFilename = null;
+        String questionImageFilename = null;
+        String choiceAImageFilename = null;
+        String choiceBImageFilename = null;
+        String choiceCImageFilename = null;
+        String choiceDImageFilename = null;
+        String category = null;
+        
 
         for (int r = 1; r <= rows; r++) {
             XSSFRow tempRow = sheet.getRow(r);
@@ -65,14 +71,46 @@ public class ExcelFileToArrayList {
                         break;
                     case 8:
                         if (cell == null) {
-                            imageFilename = "";
+                            questionImageFilename = "";
                         } else {
-                            imageFilename = cell.toString();
+                            questionImageFilename = cell.toString();
                         }
+                        break;
+                    case 9:
+                        if (cell == null) {
+                            choiceAImageFilename = "";
+                        } else {
+                            choiceAImageFilename = cell.toString();
+                        }
+                        break;
+                    case 10:
+                        if (cell == null) {
+                            choiceBImageFilename = "";
+                        } else {
+                            choiceBImageFilename = cell.toString();
+                        }
+                        break;
+                    case 11:
+                        if (cell == null) {
+                            choiceCImageFilename = "";
+                        } else {
+                            choiceCImageFilename = cell.toString();
+                        }
+                        break;
+                    case 12:
+                        if (cell == null) {
+                            choiceDImageFilename = "";
+                        } else {
+                            choiceDImageFilename = cell.toString();
+                        }
+                        break;
+                    case 13:
+                        category = cell.toString();
                         break;
                 }
             }
-            temp.add(new Item(topic, question, choiceOne, choiceTwo, choiceThree, choiceFour, correctChoice, imageFilename));
+            temp.add(new Item(topic, question, choiceOne, choiceTwo, choiceThree, choiceFour, correctChoice, questionImageFilename,
+                    choiceAImageFilename, choiceBImageFilename, choiceCImageFilename, choiceDImageFilename, category));
         }
 
         return temp;

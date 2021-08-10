@@ -15,7 +15,7 @@ public class MainDatabase {
 
     /** Dummy method. Showcases choose method. */
     public void go() {
-        Item temporaryItem = RandomizedItemChooser.choose(this.database, "Graph Theory: A Review");
+        Item temporaryItem = RandomizedItemChooser.choose(this.database, "Theoretical");
         System.out.println(temporaryItem.getTopic() + "\n" + temporaryItem.getQuestion() + "\n" +
                 temporaryItem.getCorrectChoice());
     }
