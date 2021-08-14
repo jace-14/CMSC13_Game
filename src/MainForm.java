@@ -1905,6 +1905,7 @@ public class MainForm extends javax.swing.JFrame {
                 if (userInput == JOptionPane.YES_OPTION) {
                     attempts--;
                     attemptsLabel.setText(Integer.toString(attempts));
+                    tool2Charge = 1;
                     desktopScreen.setVisible(false);
                     gameScreen.setVisible(false);
                     userInfo.setVisible(false);
@@ -2169,6 +2170,7 @@ public class MainForm extends javax.swing.JFrame {
 
     private void tool2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tool2ActionPerformed
         // TODO add your handling code here:
+        String answer = currentItem.getCorrectChoice();
         if (tool2Charge == 0) {
             JOptionPane.showMessageDialog(null,
                     "You do not have any charges available for this tool!",
@@ -2177,19 +2179,19 @@ public class MainForm extends javax.swing.JFrame {
         } else {
             tool2Charge--;
             JOptionPane.showMessageDialog(null, "Thanks to the help of the Stack Overflow community, the answer to this problem has been provided!");
-            if (true) { //if answer is in choice A, disable buttons B,C,D
+            if (answer.equals("A")) { //if answer is in choice A, disable buttons B,C,D
                 choiceB.setEnabled(false);
                 choiceC.setEnabled(false);
                 choiceD.setEnabled(false);
-            } else if (true) { //if answer is in choice B, disable A,C,D
+            } else if (answer.equals("B")) { //if answer is in choice B, disable A,C,D
                 choiceA.setEnabled(false);
                 choiceC.setEnabled(false);
                 choiceD.setEnabled(false);
-            } else if (true) { //if answer is in choice C, disable A,B,D
+            } else if (answer.equals("C")) { //if answer is in choice C, disable A,B,D
                 choiceA.setEnabled(false);
                 choiceB.setEnabled(false);
                 choiceD.setEnabled(false);
-            } else { //if answer is in choice D, disable A,B,C
+            } else if (answer.equals("D")){ //if answer is in choice D, disable A,B,C
                 choiceA.setEnabled(false);
                 choiceB.setEnabled(false);
                 choiceC.setEnabled(false);
@@ -2432,6 +2434,12 @@ public class MainForm extends javax.swing.JFrame {
     }
 
     private void loadGame(String letter) {
+        
+        choiceA.setEnabled(true);
+        choiceB.setEnabled(true);
+        choiceC.setEnabled(true);
+        choiceD.setEnabled(true);
+        
         if (numberOfQuestions == currentQuestionNumber) {
             JOptionPane.showMessageDialog(rootPane, "Test done.", "Please exit test.", JOptionPane.OK_OPTION);
         } else {
