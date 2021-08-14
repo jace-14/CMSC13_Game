@@ -1,4 +1,13 @@
+
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -24,7 +33,7 @@ public class MainForm extends javax.swing.JFrame {
     String residence = "";
     int currentLevel = 0;
     int currentCategory = 0;
-    int currentTopicIndex = 0;  
+    int currentTopicIndex = 0;
     boolean isTheoreticalTestFirst = false;
     boolean isTheoreticalCurrent = false;
     int numberOfQuestions = 4;
@@ -36,7 +45,12 @@ public class MainForm extends javax.swing.JFrame {
     int currentQuestionNumber = 0;
     String localCategory = "";
     String localTopic = "";
-    
+    long clipTimePos;
+    AudioInputStream audioInputStream, audioInputStream2, audioInputStream3;
+    Clip bgm = AudioSystem.getClip(),
+            correctAnswer = AudioSystem.getClip(),
+            wrongAnswer = AudioSystem.getClip();
+
     public ArrayList<Item> database = null;
     public ArrayList<String> theoCategories = null;
     public ArrayList<String> progCategories = null;
@@ -45,7 +59,7 @@ public class MainForm extends javax.swing.JFrame {
     /**
      * Creates new form MainForm
      */
-    public MainForm() {
+    public MainForm() throws LineUnavailableException {
         initComponents();
 
         //display login screen initially
@@ -62,7 +76,7 @@ public class MainForm extends javax.swing.JFrame {
 
         //reflect necessary information on screen
         attemptsLabel.setText(Integer.toString(attempts));
-        
+
         try {
             database = ExcelFileToArrayList.convert("Database.xlsx");
         } catch (Exception ex) {
@@ -74,6 +88,21 @@ public class MainForm extends javax.swing.JFrame {
         position.add("Junior Developer");
         position.add("Mid-level Developer");
         position.add("Senior Developer");
+
+        //initialize bg music and sound fx
+        try {
+            audioInputStream = AudioSystem.getAudioInputStream(getClass().getResource("/assets/Audio/bg-music.wav"));
+            audioInputStream2 = AudioSystem.getAudioInputStream(getClass().getResource("/assets/Audio/correct.wav"));
+            audioInputStream3 = AudioSystem.getAudioInputStream(getClass().getResource("/assets/Audio/wrong.wav"));
+            bgm.open(audioInputStream);
+            correctAnswer.open(audioInputStream2);
+            wrongAnswer.open(audioInputStream3);
+        } catch (UnsupportedAudioFileException | IOException | LineUnavailableException ex) {
+            Logger.getLogger(MainForm.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        //start bg music
+        backgroundMusic();
     }
 
     /**
@@ -225,10 +254,12 @@ public class MainForm extends javax.swing.JFrame {
         jLayeredPane1.setBackground(new java.awt.Color(255, 255, 255));
         jLayeredPane1.setMaximumSize(new java.awt.Dimension(640, 480));
         jLayeredPane1.setMinimumSize(new java.awt.Dimension(640, 480));
+        jLayeredPane1.setPreferredSize(new java.awt.Dimension(640, 480));
 
         desktopScreen.setBackground(new java.awt.Color(51, 255, 255));
         desktopScreen.setMaximumSize(new java.awt.Dimension(640, 480));
         desktopScreen.setMinimumSize(new java.awt.Dimension(640, 480));
+        desktopScreen.setPreferredSize(new java.awt.Dimension(640, 480));
         desktopScreen.addComponentListener(new java.awt.event.ComponentAdapter() {
             public void componentShown(java.awt.event.ComponentEvent evt) {
                 desktopScreenComponentShown(evt);
@@ -386,27 +417,27 @@ public class MainForm extends javax.swing.JFrame {
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(8, 8, 8)
+                .addContainerGap()
                 .addComponent(jLabel14)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 256, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 252, Short.MAX_VALUE)
                 .addComponent(soundBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel15)
-                .addGap(24, 24, 24))
+                .addGap(22, 22, 22))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(soundBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel15)
-                            .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addComponent(jLabel14, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addGap(0, 38, Short.MAX_VALUE))
+                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel15)
+                        .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel14))
+                .addContainerGap())
         );
 
         jLabel19.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/Icons/computer-icon.png"))); // NOI18N
@@ -422,28 +453,9 @@ public class MainForm extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(desktopScreenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(desktopScreenLayout.createSequentialGroup()
-                        .addGroup(desktopScreenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(desktopScreenLayout.createSequentialGroup()
-                                .addGap(25, 25, 25)
-                                .addComponent(jLabel19, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel1)
-                                .addGap(57, 57, 57)
-                                .addComponent(startBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(50, 50, 50)
-                                .addComponent(insBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(desktopScreenLayout.createSequentialGroup()
-                                .addGap(1, 1, 1)
-                                .addComponent(jLabel3)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(jLabel7)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 305, Short.MAX_VALUE)
-                        .addGroup(desktopScreenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(exitBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(39, 39, 39))
+                        .addGap(63, 63, 63)
+                        .addComponent(jLabel1)
+                        .addGap(39, 567, Short.MAX_VALUE))
                     .addGroup(desktopScreenLayout.createSequentialGroup()
                         .addGroup(desktopScreenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(desktopScreenLayout.createSequentialGroup()
@@ -460,34 +472,54 @@ public class MainForm extends javax.swing.JFrame {
                                                 .addComponent(userBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                                             .addComponent(jLabel8)))
                                     .addGroup(desktopScreenLayout.createSequentialGroup()
-                                        .addGap(23, 23, 23)
-                                        .addComponent(jLabel20, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGroup(desktopScreenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                            .addGroup(desktopScreenLayout.createSequentialGroup()
+                                                .addGap(23, 23, 23)
+                                                .addComponent(jLabel20, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addGap(20, 20, 20))
+                                            .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(jLabel2)))
                                 .addGroup(desktopScreenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(desktopScreenLayout.createSequentialGroup()
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 219, Short.MAX_VALUE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 200, Short.MAX_VALUE)
                                         .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addGap(184, 184, 184))
                                     .addGroup(desktopScreenLayout.createSequentialGroup()
                                         .addGap(91, 91, 91)
                                         .addComponent(jLabel11)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                            .addGroup(desktopScreenLayout.createSequentialGroup()
-                                .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
-                                .addGap(444, 444, 444)))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
+                        .addGap(13, 13, 13)
                         .addGroup(desktopScreenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, desktopScreenLayout.createSequentialGroup()
                                 .addComponent(sysFilesBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(45, 45, 45))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, desktopScreenLayout.createSequentialGroup()
-                                .addGroup(desktopScreenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel10))
-                                .addGap(23, 23, 23))
+                                .addGap(22, 22, 22))
+                            .addComponent(jLabel9, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel10, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, desktopScreenLayout.createSequentialGroup()
                                 .addComponent(readMeBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(44, 44, 44))))))
+                                .addGap(21, 21, 21)))
+                        .addContainerGap())
+                    .addGroup(desktopScreenLayout.createSequentialGroup()
+                        .addGroup(desktopScreenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(desktopScreenLayout.createSequentialGroup()
+                                .addGap(24, 24, 24)
+                                .addComponent(jLabel19, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(63, 63, 63)
+                                .addComponent(startBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(50, 50, 50)
+                                .addComponent(insBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(desktopScreenLayout.createSequentialGroup()
+                                .addComponent(jLabel3)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(jLabel7)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(desktopScreenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(exitBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(45, 45, 45))))
         );
         desktopScreenLayout.setVerticalGroup(
             desktopScreenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -495,62 +527,63 @@ public class MainForm extends javax.swing.JFrame {
                 .addGap(38, 38, 38)
                 .addGroup(desktopScreenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(desktopScreenLayout.createSequentialGroup()
+                        .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(1, 1, 1)
+                        .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(desktopScreenLayout.createSequentialGroup()
                         .addComponent(readMeBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel9)
                         .addGap(18, 18, 18)
                         .addComponent(sysFilesBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(6, 6, 6)
-                        .addComponent(jLabel10))
-                    .addGroup(desktopScreenLayout.createSequentialGroup()
-                        .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(1, 1, 1)
-                        .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jLabel10)))
                 .addGroup(desktopScreenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(desktopScreenLayout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jLabel11)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 62, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jLabel2)
-                        .addGap(13, 13, 13)
-                        .addComponent(jLabel4)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(desktopScreenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(desktopScreenLayout.createSequentialGroup()
-                                .addGroup(desktopScreenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel1)
-                                    .addGroup(desktopScreenLayout.createSequentialGroup()
-                                        .addGroup(desktopScreenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, desktopScreenLayout.createSequentialGroup()
-                                                .addComponent(jLabel19, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                            .addGroup(desktopScreenLayout.createSequentialGroup()
-                                                .addGroup(desktopScreenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                                    .addComponent(insBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                    .addComponent(startBtn, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
-                                        .addGroup(desktopScreenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                            .addComponent(jLabel7)
-                                            .addComponent(jLabel5)
-                                            .addComponent(jLabel3))))
-                                .addGap(26, 26, 26))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, desktopScreenLayout.createSequentialGroup()
-                                .addComponent(exitBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel6)
-                                .addGap(23, 23, 23)))
-                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(desktopScreenLayout.createSequentialGroup()
+                        .addGap(41, 41, 41))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, desktopScreenLayout.createSequentialGroup()
                         .addGap(33, 33, 33)
                         .addComponent(userBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel8)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLabel20, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))))
+                        .addGap(18, 18, 18)
+                        .addGroup(desktopScreenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(desktopScreenLayout.createSequentialGroup()
+                                .addGap(43, 43, 43)
+                                .addComponent(jLabel4))
+                            .addComponent(jLabel20, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
+                .addGroup(desktopScreenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(desktopScreenLayout.createSequentialGroup()
+                        .addGroup(desktopScreenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, desktopScreenLayout.createSequentialGroup()
+                                .addComponent(jLabel19, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(desktopScreenLayout.createSequentialGroup()
+                                .addGroup(desktopScreenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(insBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(startBtn, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
+                        .addGroup(desktopScreenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel7)
+                            .addComponent(jLabel5)
+                            .addComponent(jLabel3)))
+                    .addGroup(desktopScreenLayout.createSequentialGroup()
+                        .addComponent(exitBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel6)))
+                .addGap(21, 21, 21)
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         gameScreen.setBackground(new java.awt.Color(51, 255, 255));
+        gameScreen.setPreferredSize(new java.awt.Dimension(640, 480));
         gameScreen.addComponentListener(new java.awt.event.ComponentAdapter() {
             public void componentShown(java.awt.event.ComponentEvent evt) {
                 gameScreenComponentShown(evt);
@@ -635,7 +668,7 @@ public class MainForm extends javax.swing.JFrame {
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(showImageBtn)
-                .addContainerGap(25, Short.MAX_VALUE))
+                .addContainerGap(24, Short.MAX_VALUE))
         );
 
         currentQuestionOutOfTotalLabel.setFont(new java.awt.Font("Perpetua Titling MT", 1, 16)); // NOI18N
@@ -729,7 +762,7 @@ public class MainForm extends javax.swing.JFrame {
                         .addGroup(gameScreenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(choiceA, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(choiceC, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
                         .addGroup(gameScreenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(choiceB, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(choiceD, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))))
@@ -1238,6 +1271,7 @@ public class MainForm extends javax.swing.JFrame {
         );
 
         loginScreen.setBackground(new java.awt.Color(51, 255, 255));
+        loginScreen.setPreferredSize(new java.awt.Dimension(640, 480));
         loginScreen.addComponentListener(new java.awt.event.ComponentAdapter() {
             public void componentShown(java.awt.event.ComponentEvent evt) {
                 loginScreenComponentShown(evt);
@@ -1372,7 +1406,7 @@ public class MainForm extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jLabel39, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(loginScreenLayout.createSequentialGroup()
-                        .addContainerGap(23, Short.MAX_VALUE)
+                        .addContainerGap(91, Short.MAX_VALUE)
                         .addComponent(soundBtn5, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1403,6 +1437,7 @@ public class MainForm extends javax.swing.JFrame {
         );
 
         tTheoChooserPanel.setBackground(new java.awt.Color(51, 255, 255));
+        tTheoChooserPanel.setPreferredSize(new java.awt.Dimension(640, 480));
         tTheoChooserPanel.addComponentListener(new java.awt.event.ComponentAdapter() {
             public void componentShown(java.awt.event.ComponentEvent evt) {
                 tTheoChooserPanelComponentShown(evt);
@@ -1447,7 +1482,7 @@ public class MainForm extends javax.swing.JFrame {
                     .addComponent(tTheoFive, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(tTheoThree, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(tTheoOne, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 65, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 55, Short.MAX_VALUE)
                 .addGroup(tTheoChooserPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(tTheoFour, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(tTheoSix, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1483,6 +1518,7 @@ public class MainForm extends javax.swing.JFrame {
         );
 
         testChooserPanel.setBackground(new java.awt.Color(51, 255, 255));
+        testChooserPanel.setPreferredSize(new java.awt.Dimension(640, 480));
         testChooserPanel.addComponentListener(new java.awt.event.ComponentAdapter() {
             public void componentShown(java.awt.event.ComponentEvent evt) {
                 testChooserPanelComponentShown(evt);
@@ -1530,7 +1566,7 @@ public class MainForm extends javax.swing.JFrame {
                     .addGroup(testChooserPanelLayout.createSequentialGroup()
                         .addGap(237, 237, 237)
                         .addComponent(jLabel49)))
-                .addContainerGap(182, Short.MAX_VALUE))
+                .addContainerGap(173, Short.MAX_VALUE))
         );
         testChooserPanelLayout.setVerticalGroup(
             testChooserPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1545,10 +1581,11 @@ public class MainForm extends javax.swing.JFrame {
                 .addGroup(testChooserPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(theoreticalBtn1)
                     .addComponent(programmingBtn1))
-                .addContainerGap(227, Short.MAX_VALUE))
+                .addContainerGap(226, Short.MAX_VALUE))
         );
 
         tProgChooserPanel.setBackground(new java.awt.Color(51, 255, 255));
+        tProgChooserPanel.setPreferredSize(new java.awt.Dimension(640, 480));
         tProgChooserPanel.addComponentListener(new java.awt.event.ComponentAdapter() {
             public void componentShown(java.awt.event.ComponentEvent evt) {
                 tProgChooserPanelComponentShown(evt);
@@ -1585,7 +1622,7 @@ public class MainForm extends javax.swing.JFrame {
                 .addGroup(tProgChooserPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(tProgFour, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(tProgTwo, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(0, 242, Short.MAX_VALUE))
+                .addGap(0, 240, Short.MAX_VALUE))
             .addGroup(tProgChooserPanelLayout.createSequentialGroup()
                 .addGap(227, 227, 227)
                 .addComponent(jLabel50)
@@ -1598,7 +1635,7 @@ public class MainForm extends javax.swing.JFrame {
         tProgChooserPanelLayout.setVerticalGroup(
             tProgChooserPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(tProgChooserPanelLayout.createSequentialGroup()
-                .addContainerGap(120, Short.MAX_VALUE)
+                .addContainerGap(119, Short.MAX_VALUE)
                 .addComponent(jLabel50)
                 .addGap(44, 44, 44)
                 .addGroup(tProgChooserPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -1614,6 +1651,7 @@ public class MainForm extends javax.swing.JFrame {
         );
 
         photosPanel.setBackground(new java.awt.Color(51, 255, 255));
+        photosPanel.setPreferredSize(new java.awt.Dimension(640, 480));
         photosPanel.addComponentListener(new java.awt.event.ComponentAdapter() {
             public void componentShown(java.awt.event.ComponentEvent evt) {
                 photosPanelComponentShown(evt);
@@ -1635,7 +1673,7 @@ public class MainForm extends javax.swing.JFrame {
             jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel11Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel41, javax.swing.GroupLayout.DEFAULT_SIZE, 407, Short.MAX_VALUE)
+                .addComponent(jLabel41, javax.swing.GroupLayout.DEFAULT_SIZE, 385, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -1657,7 +1695,7 @@ public class MainForm extends javax.swing.JFrame {
             .addGroup(photosPanelLayout.createSequentialGroup()
                 .addGap(22, 22, 22)
                 .addComponent(backBtn5, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(545, Short.MAX_VALUE))
+                .addContainerGap(530, Short.MAX_VALUE))
         );
         photosPanelLayout.setVerticalGroup(
             photosPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1710,22 +1748,22 @@ public class MainForm extends javax.swing.JFrame {
             .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jLayeredPane1Layout.createSequentialGroup()
                     .addContainerGap()
-                    .addComponent(tTheoChooserPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(tTheoChooserPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 630, Short.MAX_VALUE)
                     .addContainerGap()))
             .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jLayeredPane1Layout.createSequentialGroup()
                     .addContainerGap()
-                    .addComponent(testChooserPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(testChooserPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 630, Short.MAX_VALUE)
                     .addContainerGap()))
             .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jLayeredPane1Layout.createSequentialGroup()
                     .addContainerGap()
-                    .addComponent(tProgChooserPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(tProgChooserPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 630, Short.MAX_VALUE)
                     .addContainerGap()))
             .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jLayeredPane1Layout.createSequentialGroup()
                     .addContainerGap()
-                    .addComponent(photosPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(photosPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 625, Short.MAX_VALUE)
                     .addGap(15, 15, 15)))
         );
         jLayeredPane1Layout.setVerticalGroup(
@@ -1744,22 +1782,22 @@ public class MainForm extends javax.swing.JFrame {
             .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jLayeredPane1Layout.createSequentialGroup()
                     .addGap(10, 10, 10)
-                    .addComponent(tTheoChooserPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(tTheoChooserPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 459, Short.MAX_VALUE)
                     .addContainerGap()))
             .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jLayeredPane1Layout.createSequentialGroup()
                     .addContainerGap()
-                    .addComponent(testChooserPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(testChooserPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 458, Short.MAX_VALUE)
                     .addGap(11, 11, 11)))
             .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jLayeredPane1Layout.createSequentialGroup()
                     .addContainerGap()
-                    .addComponent(tProgChooserPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(tProgChooserPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 458, Short.MAX_VALUE)
                     .addGap(11, 11, 11)))
             .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jLayeredPane1Layout.createSequentialGroup()
                     .addContainerGap()
-                    .addComponent(photosPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(photosPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 458, Short.MAX_VALUE)
                     .addContainerGap()))
         );
 
@@ -1776,6 +1814,27 @@ public class MainForm extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void backgroundMusic() {
+        if (audio == true) {
+            bgm.setMicrosecondPosition(clipTimePos);
+            bgm.start();
+            bgm.loop(Clip.LOOP_CONTINUOUSLY);
+        } else if (audio == false) {
+            clipTimePos = bgm.getMicrosecondPosition();
+            bgm.stop();
+        }
+    }
+
+    private void correctFx() {
+        correctAnswer.setFramePosition(0);
+        correctAnswer.start();
+    }
+
+    private void wrongFx() {
+        wrongAnswer.setFramePosition(0);
+        wrongAnswer.start();
+    }
 
     private void sysFilesBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sysFilesBtnActionPerformed
         // TODO add your handling code here:
@@ -1840,9 +1899,9 @@ public class MainForm extends javax.swing.JFrame {
         } else {
             if (currentLevel < 3) {
                 int userInput = JOptionPane.showConfirmDialog(null, "Use one attempt to take the test?",
-                    "Start Test",
-                    JOptionPane.YES_NO_OPTION,
-                    JOptionPane.QUESTION_MESSAGE);
+                        "Start Test",
+                        JOptionPane.YES_NO_OPTION,
+                        JOptionPane.QUESTION_MESSAGE);
                 if (userInput == JOptionPane.YES_OPTION) {
                     attempts--;
                     attemptsLabel.setText(Integer.toString(attempts));
@@ -1867,6 +1926,7 @@ public class MainForm extends javax.swing.JFrame {
         if (audio == true) {
             //turn background music off
             audio = false;
+            backgroundMusic();
             soundBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/Icons/sound-off.png")));
             soundBtn2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/Icons/sound-off.png")));
             soundBtn3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/Icons/sound-off.png")));
@@ -1875,6 +1935,7 @@ public class MainForm extends javax.swing.JFrame {
         } else {
             //turn background music on
             audio = true;
+            backgroundMusic();
             soundBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/Icons/sound-on.png")));
             soundBtn2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/Icons/sound-on.png")));
             soundBtn3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/Icons/sound-on.png")));
@@ -1927,6 +1988,7 @@ public class MainForm extends javax.swing.JFrame {
         if (audio == true) {
             //turn background music off
             audio = false;
+            backgroundMusic();
             soundBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/Icons/sound-off.png")));
             soundBtn2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/Icons/sound-off.png")));
             soundBtn3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/Icons/sound-off.png")));
@@ -1935,6 +1997,7 @@ public class MainForm extends javax.swing.JFrame {
         } else {
             //turn background music on
             audio = true;
+            backgroundMusic();
             soundBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/Icons/sound-on.png")));
             soundBtn2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/Icons/sound-on.png")));
             soundBtn3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/Icons/sound-on.png")));
@@ -1970,7 +2033,7 @@ public class MainForm extends javax.swing.JFrame {
         instructionsScreen.setVisible(false);
         loginScreen.setVisible(false);
         desktopScreen.setVisible(true);
-            
+
         currentLevel = 0;
         currentCategory = 0;
         currentTopicIndex = 0;
@@ -2009,6 +2072,7 @@ public class MainForm extends javax.swing.JFrame {
         if (audio == true) {
             //turn background music off
             audio = false;
+            backgroundMusic();
             soundBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/Icons/sound-off.png")));
             soundBtn2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/Icons/sound-off.png")));
             soundBtn3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/Icons/sound-off.png")));
@@ -2017,6 +2081,7 @@ public class MainForm extends javax.swing.JFrame {
         } else {
             //turn background music on
             audio = true;
+            backgroundMusic();
             soundBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/Icons/sound-on.png")));
             soundBtn2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/Icons/sound-on.png")));
             soundBtn3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/Icons/sound-on.png")));
@@ -2030,6 +2095,7 @@ public class MainForm extends javax.swing.JFrame {
         if (audio == true) {
             //turn background music off
             audio = false;
+            backgroundMusic();
             soundBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/Icons/sound-off.png")));
             soundBtn2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/Icons/sound-off.png")));
             soundBtn3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/Icons/sound-off.png")));
@@ -2038,6 +2104,7 @@ public class MainForm extends javax.swing.JFrame {
         } else {
             //turn background music on
             audio = true;
+            backgroundMusic();
             soundBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/Icons/sound-on.png")));
             soundBtn2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/Icons/sound-on.png")));
             soundBtn3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/Icons/sound-on.png")));
@@ -2056,6 +2123,7 @@ public class MainForm extends javax.swing.JFrame {
         if (audio == true) {
             //turn background music off
             audio = false;
+            backgroundMusic();
             soundBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/Icons/sound-off.png")));
             soundBtn2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/Icons/sound-off.png")));
             soundBtn3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/Icons/sound-off.png")));
@@ -2064,6 +2132,7 @@ public class MainForm extends javax.swing.JFrame {
         } else {
             //turn background music on
             audio = true;
+            backgroundMusic();
             soundBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/Icons/sound-on.png")));
             soundBtn2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/Icons/sound-on.png")));
             soundBtn3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/Icons/sound-on.png")));
@@ -2086,7 +2155,7 @@ public class MainForm extends javax.swing.JFrame {
             tTheoChooserPanel.setVisible(false);
             testChooserPanel.setVisible(false);
             tProgChooserPanel.setVisible(false);
-            
+
             name = jTextField1.getText();
             age = jTextField2.getText();
             gender = jTextField3.getText();
@@ -2150,7 +2219,7 @@ public class MainForm extends javax.swing.JFrame {
         // TODO add your handling code here:
         isDoneChoosingTheoQues = true;
         theoCategories = new ArrayList();
-        
+
         int selected = 0;
         if (tTheoOne.isSelected() == true) {
             selected++;
@@ -2195,9 +2264,9 @@ public class MainForm extends javax.swing.JFrame {
             if (tTheoSeven.isSelected() == true) {
                 theoCategories.add(tTheoSeven.getText());
             }
-            
+
             tTheoChooserPanel.setVisible(false);
-            
+
             if (isDoneChoosingProgQues == true) {
                 gameScreen.setVisible(true);
             } else {
@@ -2223,7 +2292,7 @@ public class MainForm extends javax.swing.JFrame {
         // TODO add your handling code here:
         isDoneChoosingProgQues = true;
         progCategories = new ArrayList();
-        
+
         int selected = 0;
         if (tProgOne.isSelected() == true) {
             selected++;
@@ -2237,7 +2306,7 @@ public class MainForm extends javax.swing.JFrame {
         if (tProgFour.isSelected() == true) {
             selected++;
         }
-        
+
         if ((numberOfQuestions / 4) == selected) {
             if (tProgOne.isSelected() == true) {
                 progCategories.add(tProgOne.getText());
@@ -2251,9 +2320,9 @@ public class MainForm extends javax.swing.JFrame {
             if (tProgFour.isSelected() == true) {
                 progCategories.add(tProgFour.getText());
             }
-            
+
             tProgChooserPanel.setVisible(false);
-            
+
             if (isDoneChoosingTheoQues == true) {
                 gameScreen.setVisible(true);
             } else {
@@ -2278,7 +2347,7 @@ public class MainForm extends javax.swing.JFrame {
     private void desktopScreenComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_desktopScreenComponentShown
         // TODO add your handling code here:
         if (currentLevel == 0) {
-           numberOfQuestions = 4;
+            numberOfQuestions = 4;
         } else if (currentLevel == 1) {
             numberOfQuestions = 8;
         } else if (currentLevel == 2) {
@@ -2299,7 +2368,7 @@ public class MainForm extends javax.swing.JFrame {
         currentQuestionNumber = 1;
         String header = localCategory + " - " + "Question " + currentQuestionNumber + " out of " + numberOfQuestions;
         String correctAnswersHeader = "Correct Answers: " + correctAnswers + "/" + numberOfQuestions;
-      
+
         if (localCategory.equals("Theoretical")) {
             localTopic = theoCategories.get(currentCategory);
             isTheoreticalCurrent = true;
@@ -2309,44 +2378,44 @@ public class MainForm extends javax.swing.JFrame {
         }
         currentItem = RandomizedItemChooser.choose(database, localTopic, localCategory);
         currentItem.changeIsAnsweredToTrue();
-        
+
         currentQuestionOutOfTotalLabel.setText(header);
         questionLabel.setText(currentItem.getQuestion());
-            choiceA.setText("<html>" + currentItem.getChoiceOne() + "</html>");
-            choiceB.setText("<html>" + currentItem.getChoiceTwo() + "</html>");
-            choiceC.setText("<html>" + currentItem.getChoiceThree() + "</html>");
-            choiceD.setText("<html>" + currentItem.getChoiceFour() + "</html>");
-        
+        choiceA.setText("<html>" + currentItem.getChoiceOne() + "</html>");
+        choiceB.setText("<html>" + currentItem.getChoiceTwo() + "</html>");
+        choiceC.setText("<html>" + currentItem.getChoiceThree() + "</html>");
+        choiceD.setText("<html>" + currentItem.getChoiceFour() + "</html>");
+
         if (currentItem.getQuestionImageFilename().equals("")) {
             showImageBtn.setEnabled(false);
         } else {
             showImageBtn.setEnabled(true);
         }
-        
+
         if (currentItem.getChoiceAImageFilename().equals("")) {
             showChoiceA.setEnabled(false);
         } else {
             showChoiceA.setEnabled(true);
         }
-        
+
         if (currentItem.getChoiceBImageFilename().equals("")) {
             showChoiceB.setEnabled(false);
         } else {
             showChoiceB.setEnabled(true);
         }
-        
+
         if (currentItem.getChoiceCImageFilename().equals("")) {
             showChoiceC.setEnabled(false);
         } else {
             showChoiceC.setEnabled(true);
         }
-        
+
         if (currentItem.getChoiceDImageFilename().equals("")) {
             showChoiceD.setEnabled(false);
         } else {
             showChoiceD.setEnabled(true);
         }
-        
+
         correctAnswersLabel.setText(correctAnswersHeader);
         tTheoOne.setSelected(false);
         tTheoTwo.setSelected(false);
@@ -2359,10 +2428,9 @@ public class MainForm extends javax.swing.JFrame {
         tProgTwo.setSelected(false);
         tProgThree.setSelected(false);
         tProgFour.setSelected(false);
-        
+
     }
-    
-    
+
     private void loadGame(String letter) {
         if (numberOfQuestions == currentQuestionNumber) {
             JOptionPane.showMessageDialog(rootPane, "Test done.", "Please exit test.", JOptionPane.OK_OPTION);
@@ -2371,6 +2439,13 @@ public class MainForm extends javax.swing.JFrame {
             currentQuestionNumber++;
             if (letter.equals(currentItem.getCorrectChoice())) {
                 correctAnswers++;
+                //play correct sound effect
+                correctFx();
+                JOptionPane.showMessageDialog(rootPane, "You got the correct answer! Well done!.", "Correct!", JOptionPane.OK_OPTION);
+            } else {
+                //play wrong sound effect
+                wrongFx();
+                JOptionPane.showMessageDialog(rootPane, "You got the wrong answer! Nice try!.", "Wrong!", JOptionPane.OK_OPTION);
             }
             String correctAnswersHeader = "Correct Answers: " + correctAnswers + "/" + numberOfQuestions;
 
@@ -2408,7 +2483,7 @@ public class MainForm extends javax.swing.JFrame {
             choiceB.setText("<html>" + currentItem.getChoiceTwo() + "</html>");
             choiceC.setText("<html>" + currentItem.getChoiceThree() + "</html>");
             choiceD.setText("<html>" + currentItem.getChoiceFour() + "</html>");
-            
+
             if (currentItem.getQuestionImageFilename().equals("")) {
                 showImageBtn.setEnabled(false);
             } else {
@@ -2438,7 +2513,7 @@ public class MainForm extends javax.swing.JFrame {
             } else {
                 showChoiceD.setEnabled(true);
             }
-        
+
         }
     }
     private void gameScreenComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_gameScreenComponentShown
@@ -2486,7 +2561,7 @@ public class MainForm extends javax.swing.JFrame {
         gameScreen.setVisible(false);
         String imageDir = "/Resources" + currentItem.getQuestionImageFilename();
         jLabel41.setIcon(new javax.swing.ImageIcon(getClass().getResource(imageDir)));
-        
+
     }//GEN-LAST:event_showImageBtnActionPerformed
 
     private void showChoiceBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_showChoiceBActionPerformed
@@ -2545,21 +2620,21 @@ public class MainForm extends javax.swing.JFrame {
                     break;
                 }
             }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(MainForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(MainForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(MainForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(MainForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new MainForm().setVisible(true);
+                try {
+                    new MainForm().setVisible(true);
+                } catch (LineUnavailableException ex) {
+                    Logger.getLogger(MainForm.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
     }
