@@ -1,4 +1,6 @@
-
+import java.util.ArrayList;
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
 /*
@@ -16,6 +18,29 @@ public class MainForm extends javax.swing.JFrame {
     //global variables with base values
     boolean audio = true;
     int tool1Charge = 0, tool2Charge = 0, attempts = 3;
+    String name = "";
+    String age = "";
+    String gender = "";
+    String residence = "";
+    int currentLevel = 0;
+    int currentCategory = 0;
+    int currentTopicIndex = 0;  
+    boolean isTheoreticalTestFirst = false;
+    boolean isTheoreticalCurrent = false;
+    int numberOfQuestions = 4;
+    boolean isDoneChoosingProgQues = false;
+    boolean isDoneChoosingTheoQues = false;
+    boolean isGameScreenOpen = false;
+    int correctAnswers = 0;
+    Item currentItem = null;
+    int currentQuestionNumber = 0;
+    String localCategory = "";
+    String localTopic = "";
+    
+    public ArrayList<Item> database = null;
+    public ArrayList<String> theoCategories = null;
+    public ArrayList<String> progCategories = null;
+    public ArrayList<String> position = null;
 
     /**
      * Creates new form MainForm
@@ -30,10 +55,25 @@ public class MainForm extends javax.swing.JFrame {
         gameOver.setVisible(false);
         instructionsScreen.setVisible(false);
         loginScreen.setVisible(true);
+        tTheoChooserPanel.setVisible(false);
+        testChooserPanel.setVisible(false);
+        tProgChooserPanel.setVisible(false);
+        photosPanel.setVisible(false);
 
         //reflect necessary information on screen
         attemptsLabel.setText(Integer.toString(attempts));
+        
+        try {
+            database = ExcelFileToArrayList.convert("Database.xlsx");
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
 
+        position = new ArrayList();
+        position.add("College Graduate");
+        position.add("Junior Developer");
+        position.add("Mid-level Developer");
+        position.add("Senior Developer");
     }
 
     /**
@@ -45,7 +85,6 @@ public class MainForm extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel2 = new javax.swing.JPanel();
         jLayeredPane1 = new javax.swing.JLayeredPane();
         desktopScreen = new javax.swing.JPanel();
         startBtn = new javax.swing.JButton();
@@ -80,8 +119,9 @@ public class MainForm extends javax.swing.JFrame {
         choiceC = new javax.swing.JButton();
         choiceD = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
-        questionLabel = new javax.swing.JLabel();
         showImageBtn = new javax.swing.JButton();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        questionLabel = new javax.swing.JTextArea();
         currentQuestionOutOfTotalLabel = new javax.swing.JLabel();
         tool1 = new javax.swing.JButton();
         tool2 = new javax.swing.JButton();
@@ -149,22 +189,36 @@ public class MainForm extends javax.swing.JFrame {
         jTextField3 = new javax.swing.JTextField();
         jTextField4 = new javax.swing.JTextField();
         enterBtn = new javax.swing.JButton();
-
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 100, Short.MAX_VALUE)
-        );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 100, Short.MAX_VALUE)
-        );
+        tTheoChooserPanel = new javax.swing.JPanel();
+        theoreticalCategoriesSubmitBtn = new javax.swing.JButton();
+        jLabel45 = new javax.swing.JLabel();
+        tTheoOne = new javax.swing.JCheckBox();
+        tTheoTwo = new javax.swing.JCheckBox();
+        tTheoThree = new javax.swing.JCheckBox();
+        tTheoFour = new javax.swing.JCheckBox();
+        tTheoFive = new javax.swing.JCheckBox();
+        tTheoSix = new javax.swing.JCheckBox();
+        tTheoSeven = new javax.swing.JCheckBox();
+        testChooserPanel = new javax.swing.JPanel();
+        jLabel46 = new javax.swing.JLabel();
+        jLabel47 = new javax.swing.JLabel();
+        theoreticalBtn1 = new javax.swing.JButton();
+        programmingBtn1 = new javax.swing.JButton();
+        jLabel49 = new javax.swing.JLabel();
+        tProgChooserPanel = new javax.swing.JPanel();
+        programmingCategoriesSubmitBtn = new javax.swing.JButton();
+        jLabel50 = new javax.swing.JLabel();
+        tProgOne = new javax.swing.JCheckBox();
+        tProgTwo = new javax.swing.JCheckBox();
+        tProgThree = new javax.swing.JCheckBox();
+        tProgFour = new javax.swing.JCheckBox();
+        photosPanel = new javax.swing.JPanel();
+        jPanel11 = new javax.swing.JPanel();
+        jLabel41 = new javax.swing.JLabel();
+        backBtn5 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setMaximumSize(new java.awt.Dimension(640, 480));
         setMinimumSize(new java.awt.Dimension(640, 480));
-        setPreferredSize(new java.awt.Dimension(640, 480));
         setResizable(false);
         setSize(new java.awt.Dimension(640, 480));
 
@@ -175,6 +229,11 @@ public class MainForm extends javax.swing.JFrame {
         desktopScreen.setBackground(new java.awt.Color(51, 255, 255));
         desktopScreen.setMaximumSize(new java.awt.Dimension(640, 480));
         desktopScreen.setMinimumSize(new java.awt.Dimension(640, 480));
+        desktopScreen.addComponentListener(new java.awt.event.ComponentAdapter() {
+            public void componentShown(java.awt.event.ComponentEvent evt) {
+                desktopScreenComponentShown(evt);
+            }
+        });
 
         startBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/Icons/new-window-icon.png"))); // NOI18N
         startBtn.setContentAreaFilled(false);
@@ -331,7 +390,7 @@ public class MainForm extends javax.swing.JFrame {
                 .addComponent(jLabel14)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 252, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 256, Short.MAX_VALUE)
                 .addComponent(soundBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel15)
@@ -380,7 +439,7 @@ public class MainForm extends javax.swing.JFrame {
                                 .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
                                 .addComponent(jLabel7)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 297, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 305, Short.MAX_VALUE)
                         .addGroup(desktopScreenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(exitBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -407,7 +466,7 @@ public class MainForm extends javax.swing.JFrame {
                                         .addComponent(jLabel2)))
                                 .addGroup(desktopScreenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(desktopScreenLayout.createSequentialGroup()
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 210, Short.MAX_VALUE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 219, Short.MAX_VALUE)
                                         .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addGap(184, 184, 184))
                                     .addGroup(desktopScreenLayout.createSequentialGroup()
@@ -415,7 +474,7 @@ public class MainForm extends javax.swing.JFrame {
                                         .addComponent(jLabel11)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                             .addGroup(desktopScreenLayout.createSequentialGroup()
-                                .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, 85, Short.MAX_VALUE)
+                                .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
                                 .addGap(444, 444, 444)))
                         .addGroup(desktopScreenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, desktopScreenLayout.createSequentialGroup()
@@ -451,7 +510,7 @@ public class MainForm extends javax.swing.JFrame {
                     .addGroup(desktopScreenLayout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jLabel11)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 40, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 62, Short.MAX_VALUE)
                         .addComponent(jLabel2)
                         .addGap(13, 13, 13)
                         .addComponent(jLabel4)
@@ -492,54 +551,91 @@ public class MainForm extends javax.swing.JFrame {
         );
 
         gameScreen.setBackground(new java.awt.Color(51, 255, 255));
+        gameScreen.addComponentListener(new java.awt.event.ComponentAdapter() {
+            public void componentShown(java.awt.event.ComponentEvent evt) {
+                gameScreenComponentShown(evt);
+            }
+        });
 
         choiceA.setText("A");
         choiceA.setMaximumSize(new java.awt.Dimension(150, 50));
         choiceA.setMinimumSize(new java.awt.Dimension(150, 50));
         choiceA.setPreferredSize(new java.awt.Dimension(150, 50));
+        choiceA.addComponentListener(new java.awt.event.ComponentAdapter() {
+            public void componentShown(java.awt.event.ComponentEvent evt) {
+                choiceAComponentShown(evt);
+            }
+        });
+        choiceA.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                choiceAActionPerformed(evt);
+            }
+        });
 
         choiceB.setText("B");
         choiceB.setMaximumSize(new java.awt.Dimension(150, 50));
         choiceB.setMinimumSize(new java.awt.Dimension(150, 50));
         choiceB.setPreferredSize(new java.awt.Dimension(150, 50));
+        choiceB.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                choiceBActionPerformed(evt);
+            }
+        });
 
         choiceC.setText("C");
         choiceC.setMaximumSize(new java.awt.Dimension(150, 50));
         choiceC.setMinimumSize(new java.awt.Dimension(150, 50));
         choiceC.setPreferredSize(new java.awt.Dimension(150, 50));
+        choiceC.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                choiceCActionPerformed(evt);
+            }
+        });
 
         choiceD.setText("D");
         choiceD.setMaximumSize(new java.awt.Dimension(150, 50));
         choiceD.setMinimumSize(new java.awt.Dimension(150, 50));
         choiceD.setPreferredSize(new java.awt.Dimension(150, 50));
-
-        questionLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        questionLabel.setText("QUESTION");
+        choiceD.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                choiceDActionPerformed(evt);
+            }
+        });
 
         showImageBtn.setText("Show Image");
         showImageBtn.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        showImageBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                showImageBtnActionPerformed(evt);
+            }
+        });
+
+        questionLabel.setEditable(false);
+        questionLabel.setColumns(20);
+        questionLabel.setRows(5);
+        jScrollPane2.setViewportView(questionLabel);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(questionLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 364, Short.MAX_VALUE)
-                .addContainerGap())
-            .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(152, 152, 152)
                 .addComponent(showImageBtn)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane2)
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(questionLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(36, 36, 36)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addComponent(showImageBtn)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(25, Short.MAX_VALUE))
         );
 
         currentQuestionOutOfTotalLabel.setFont(new java.awt.Font("Perpetua Titling MT", 1, 16)); // NOI18N
@@ -591,10 +687,25 @@ public class MainForm extends javax.swing.JFrame {
         });
 
         showChoiceB.setText("Show Choice");
+        showChoiceB.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                showChoiceBActionPerformed(evt);
+            }
+        });
 
         showChoiceD.setText("Show Choice");
+        showChoiceD.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                showChoiceDActionPerformed(evt);
+            }
+        });
 
         showChoiceC.setText("Show Choice");
+        showChoiceC.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                showChoiceCActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout gameScreenLayout = new javax.swing.GroupLayout(gameScreen);
         gameScreen.setLayout(gameScreenLayout);
@@ -618,7 +729,7 @@ public class MainForm extends javax.swing.JFrame {
                         .addGroup(gameScreenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(choiceA, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(choiceC, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
                         .addGroup(gameScreenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(choiceB, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(choiceD, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))))
@@ -685,6 +796,11 @@ public class MainForm extends javax.swing.JFrame {
         );
 
         userInfo.setBackground(new java.awt.Color(51, 255, 255));
+        userInfo.addComponentListener(new java.awt.event.ComponentAdapter() {
+            public void componentShown(java.awt.event.ComponentEvent evt) {
+                userInfoComponentShown(evt);
+            }
+        });
 
         jPanel4.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -912,11 +1028,21 @@ public class MainForm extends javax.swing.JFrame {
         );
 
         gameOver.setBackground(new java.awt.Color(51, 255, 255));
+        gameOver.addComponentListener(new java.awt.event.ComponentAdapter() {
+            public void componentShown(java.awt.event.ComponentEvent evt) {
+                gameOverComponentShown(evt);
+            }
+        });
 
         jLabel27.setFont(new java.awt.Font("Felix Titling", 1, 60)); // NOI18N
         jLabel27.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel27.setText("Game Over");
         jLabel27.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jLabel27.addComponentListener(new java.awt.event.ComponentAdapter() {
+            public void componentShown(java.awt.event.ComponentEvent evt) {
+                jLabel27ComponentShown(evt);
+            }
+        });
 
         jLabel28.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel28.setText("Highest Occupation Attained:");
@@ -927,7 +1053,6 @@ public class MainForm extends javax.swing.JFrame {
         jLabel36.setPreferredSize(new java.awt.Dimension(47, 14));
 
         jobLabel2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jobLabel2.setText("College Graduate");
 
         jLabel29.setFont(new java.awt.Font("DialogInput", 1, 24)); // NOI18N
         jLabel29.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -984,7 +1109,7 @@ public class MainForm extends javax.swing.JFrame {
                 .addGroup(gameOverLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel28)
                     .addComponent(jLabel36, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jobLabel2))
+                    .addComponent(jobLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(46, 46, 46)
                 .addComponent(jLabel29)
                 .addGap(32, 32, 32)
@@ -1113,6 +1238,11 @@ public class MainForm extends javax.swing.JFrame {
         );
 
         loginScreen.setBackground(new java.awt.Color(51, 255, 255));
+        loginScreen.addComponentListener(new java.awt.event.ComponentAdapter() {
+            public void componentShown(java.awt.event.ComponentEvent evt) {
+                loginScreenComponentShown(evt);
+            }
+        });
 
         jPanel8.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -1185,7 +1315,7 @@ public class MainForm extends javax.swing.JFrame {
         jPanel9Layout.setHorizontalGroup(
             jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel9Layout.createSequentialGroup()
-                .addContainerGap(81, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel9Layout.createSequentialGroup()
                         .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -1242,10 +1372,11 @@ public class MainForm extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jLabel39, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(loginScreenLayout.createSequentialGroup()
-                        .addContainerGap(20, Short.MAX_VALUE)
+                        .addContainerGap(23, Short.MAX_VALUE)
                         .addComponent(soundBtn5, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(8, 8, 8)))
                 .addGap(60, 60, 60))
         );
         loginScreenLayout.setVerticalGroup(
@@ -1271,12 +1402,283 @@ public class MainForm extends javax.swing.JFrame {
                 .addContainerGap(69, Short.MAX_VALUE))
         );
 
+        tTheoChooserPanel.setBackground(new java.awt.Color(51, 255, 255));
+        tTheoChooserPanel.addComponentListener(new java.awt.event.ComponentAdapter() {
+            public void componentShown(java.awt.event.ComponentEvent evt) {
+                tTheoChooserPanelComponentShown(evt);
+            }
+        });
+
+        theoreticalCategoriesSubmitBtn.setText("Select");
+        theoreticalCategoriesSubmitBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                theoreticalCategoriesSubmitBtnActionPerformed(evt);
+            }
+        });
+
+        jLabel45.setText("Select Theoretical Test Categories");
+
+        tTheoOne.setText("Introduction to programming paradigms");
+
+        tTheoTwo.setText("Procedural Programming");
+
+        tTheoThree.setText("Functional Programming");
+
+        tTheoFour.setText("Object-oriented Programming");
+
+        tTheoFive.setText("Event-driven Programming");
+
+        tTheoSix.setText("Imperative vs Declarative Programming");
+
+        tTheoSeven.setText("Design Patterns");
+
+        javax.swing.GroupLayout tTheoChooserPanelLayout = new javax.swing.GroupLayout(tTheoChooserPanel);
+        tTheoChooserPanel.setLayout(tTheoChooserPanelLayout);
+        tTheoChooserPanelLayout.setHorizontalGroup(
+            tTheoChooserPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(tTheoChooserPanelLayout.createSequentialGroup()
+                .addGap(233, 233, 233)
+                .addComponent(jLabel45)
+                .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(tTheoChooserPanelLayout.createSequentialGroup()
+                .addGap(61, 61, 61)
+                .addGroup(tTheoChooserPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(tTheoSeven, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(tTheoFive, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(tTheoThree, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(tTheoOne, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 65, Short.MAX_VALUE)
+                .addGroup(tTheoChooserPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(tTheoFour, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tTheoSix, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tTheoTwo, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(76, 76, 76))
+            .addGroup(tTheoChooserPanelLayout.createSequentialGroup()
+                .addGap(286, 286, 286)
+                .addComponent(theoreticalCategoriesSubmitBtn)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        tTheoChooserPanelLayout.setVerticalGroup(
+            tTheoChooserPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(tTheoChooserPanelLayout.createSequentialGroup()
+                .addContainerGap(67, Short.MAX_VALUE)
+                .addComponent(jLabel45)
+                .addGap(73, 73, 73)
+                .addGroup(tTheoChooserPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(tTheoOne)
+                    .addComponent(tTheoTwo))
+                .addGap(30, 30, 30)
+                .addGroup(tTheoChooserPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(tTheoThree)
+                    .addComponent(tTheoFour))
+                .addGap(35, 35, 35)
+                .addGroup(tTheoChooserPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(tTheoFive)
+                    .addComponent(tTheoSix))
+                .addGap(37, 37, 37)
+                .addComponent(tTheoSeven)
+                .addGap(54, 54, 54)
+                .addComponent(theoreticalCategoriesSubmitBtn)
+                .addGap(34, 34, 34))
+        );
+
+        testChooserPanel.setBackground(new java.awt.Color(51, 255, 255));
+        testChooserPanel.addComponentListener(new java.awt.event.ComponentAdapter() {
+            public void componentShown(java.awt.event.ComponentEvent evt) {
+                testChooserPanelComponentShown(evt);
+            }
+        });
+
+        jLabel46.setText("Theoretical");
+
+        jLabel47.setText("Programming");
+
+        theoreticalBtn1.setText("Select");
+        theoreticalBtn1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                theoreticalBtn1ActionPerformed(evt);
+            }
+        });
+
+        programmingBtn1.setText("Select");
+        programmingBtn1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                programmingBtn1ActionPerformed(evt);
+            }
+        });
+
+        jLabel49.setText("Select Type of Test to Take First");
+
+        javax.swing.GroupLayout testChooserPanelLayout = new javax.swing.GroupLayout(testChooserPanel);
+        testChooserPanel.setLayout(testChooserPanelLayout);
+        testChooserPanelLayout.setHorizontalGroup(
+            testChooserPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(testChooserPanelLayout.createSequentialGroup()
+                .addGroup(testChooserPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(testChooserPanelLayout.createSequentialGroup()
+                        .addGroup(testChooserPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(testChooserPanelLayout.createSequentialGroup()
+                                .addGap(169, 169, 169)
+                                .addComponent(jLabel46))
+                            .addGroup(testChooserPanelLayout.createSequentialGroup()
+                                .addGap(159, 159, 159)
+                                .addComponent(theoreticalBtn1)))
+                        .addGap(169, 169, 169)
+                        .addGroup(testChooserPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel47)
+                            .addComponent(programmingBtn1)))
+                    .addGroup(testChooserPanelLayout.createSequentialGroup()
+                        .addGap(237, 237, 237)
+                        .addComponent(jLabel49)))
+                .addContainerGap(182, Short.MAX_VALUE))
+        );
+        testChooserPanelLayout.setVerticalGroup(
+            testChooserPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(testChooserPanelLayout.createSequentialGroup()
+                .addGap(43, 43, 43)
+                .addComponent(jLabel49)
+                .addGap(76, 76, 76)
+                .addGroup(testChooserPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel46)
+                    .addComponent(jLabel47))
+                .addGap(62, 62, 62)
+                .addGroup(testChooserPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(theoreticalBtn1)
+                    .addComponent(programmingBtn1))
+                .addContainerGap(227, Short.MAX_VALUE))
+        );
+
+        tProgChooserPanel.setBackground(new java.awt.Color(51, 255, 255));
+        tProgChooserPanel.addComponentListener(new java.awt.event.ComponentAdapter() {
+            public void componentShown(java.awt.event.ComponentEvent evt) {
+                tProgChooserPanelComponentShown(evt);
+            }
+        });
+
+        programmingCategoriesSubmitBtn.setText("Select");
+        programmingCategoriesSubmitBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                programmingCategoriesSubmitBtnActionPerformed(evt);
+            }
+        });
+
+        jLabel50.setText("Select Programming Test Categories");
+
+        tProgOne.setText("Java");
+
+        tProgTwo.setText("C");
+
+        tProgThree.setText("JavaScript");
+
+        tProgFour.setText("Python");
+
+        javax.swing.GroupLayout tProgChooserPanelLayout = new javax.swing.GroupLayout(tProgChooserPanel);
+        tProgChooserPanel.setLayout(tProgChooserPanelLayout);
+        tProgChooserPanelLayout.setHorizontalGroup(
+            tProgChooserPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(tProgChooserPanelLayout.createSequentialGroup()
+                .addGap(236, 236, 236)
+                .addGroup(tProgChooserPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(tProgThree, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(tProgOne, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(tProgChooserPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(tProgFour, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(tProgTwo, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(0, 242, Short.MAX_VALUE))
+            .addGroup(tProgChooserPanelLayout.createSequentialGroup()
+                .addGap(227, 227, 227)
+                .addComponent(jLabel50)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, tProgChooserPanelLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(programmingCategoriesSubmitBtn)
+                .addGap(280, 280, 280))
+        );
+        tProgChooserPanelLayout.setVerticalGroup(
+            tProgChooserPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(tProgChooserPanelLayout.createSequentialGroup()
+                .addContainerGap(120, Short.MAX_VALUE)
+                .addComponent(jLabel50)
+                .addGap(44, 44, 44)
+                .addGroup(tProgChooserPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(tProgOne)
+                    .addComponent(tProgTwo))
+                .addGap(26, 26, 26)
+                .addGroup(tProgChooserPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(tProgThree)
+                    .addComponent(tProgFour))
+                .addGap(58, 58, 58)
+                .addComponent(programmingCategoriesSubmitBtn)
+                .addGap(128, 128, 128))
+        );
+
+        photosPanel.setBackground(new java.awt.Color(51, 255, 255));
+        photosPanel.addComponentListener(new java.awt.event.ComponentAdapter() {
+            public void componentShown(java.awt.event.ComponentEvent evt) {
+                photosPanelComponentShown(evt);
+            }
+        });
+
+        jPanel11.setBackground(new java.awt.Color(255, 255, 255));
+
+        javax.swing.GroupLayout jPanel11Layout = new javax.swing.GroupLayout(jPanel11);
+        jPanel11.setLayout(jPanel11Layout);
+        jPanel11Layout.setHorizontalGroup(
+            jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel11Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel41, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        jPanel11Layout.setVerticalGroup(
+            jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel11Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel41, javax.swing.GroupLayout.DEFAULT_SIZE, 407, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+
+        backBtn5.setText("Back");
+        backBtn5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                backBtn5ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout photosPanelLayout = new javax.swing.GroupLayout(photosPanel);
+        photosPanel.setLayout(photosPanelLayout);
+        photosPanelLayout.setHorizontalGroup(
+            photosPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(photosPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+            .addGroup(photosPanelLayout.createSequentialGroup()
+                .addGap(22, 22, 22)
+                .addComponent(backBtn5, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(545, Short.MAX_VALUE))
+        );
+        photosPanelLayout.setVerticalGroup(
+            photosPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(photosPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(backBtn5)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+
         jLayeredPane1.setLayer(desktopScreen, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jLayeredPane1.setLayer(gameScreen, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jLayeredPane1.setLayer(userInfo, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jLayeredPane1.setLayer(gameOver, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jLayeredPane1.setLayer(instructionsScreen, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jLayeredPane1.setLayer(loginScreen, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPane1.setLayer(tTheoChooserPanel, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPane1.setLayer(testChooserPanel, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPane1.setLayer(tProgChooserPanel, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPane1.setLayer(photosPanel, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         javax.swing.GroupLayout jLayeredPane1Layout = new javax.swing.GroupLayout(jLayeredPane1);
         jLayeredPane1.setLayout(jLayeredPane1Layout);
@@ -1305,6 +1707,26 @@ public class MainForm extends javax.swing.JFrame {
                 .addGroup(jLayeredPane1Layout.createSequentialGroup()
                     .addComponent(loginScreen, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addContainerGap()))
+            .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jLayeredPane1Layout.createSequentialGroup()
+                    .addContainerGap()
+                    .addComponent(tTheoChooserPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addContainerGap()))
+            .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jLayeredPane1Layout.createSequentialGroup()
+                    .addContainerGap()
+                    .addComponent(testChooserPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addContainerGap()))
+            .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jLayeredPane1Layout.createSequentialGroup()
+                    .addContainerGap()
+                    .addComponent(tProgChooserPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addContainerGap()))
+            .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jLayeredPane1Layout.createSequentialGroup()
+                    .addContainerGap()
+                    .addComponent(photosPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGap(15, 15, 15)))
         );
         jLayeredPane1Layout.setVerticalGroup(
             jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1319,6 +1741,26 @@ public class MainForm extends javax.swing.JFrame {
                 .addComponent(instructionsScreen, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addComponent(loginScreen, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jLayeredPane1Layout.createSequentialGroup()
+                    .addGap(10, 10, 10)
+                    .addComponent(tTheoChooserPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addContainerGap()))
+            .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jLayeredPane1Layout.createSequentialGroup()
+                    .addContainerGap()
+                    .addComponent(testChooserPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGap(11, 11, 11)))
+            .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jLayeredPane1Layout.createSequentialGroup()
+                    .addContainerGap()
+                    .addComponent(tProgChooserPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGap(11, 11, 11)))
+            .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jLayeredPane1Layout.createSequentialGroup()
+                    .addContainerGap()
+                    .addComponent(photosPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addContainerGap()))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -1396,23 +1838,27 @@ public class MainForm extends javax.swing.JFrame {
                     "No more attemps!",
                     JOptionPane.WARNING_MESSAGE);
         } else {
-            int userInput = JOptionPane.showConfirmDialog(null, "Use one attempt to take the test?",
+            if (currentLevel < 3) {
+                int userInput = JOptionPane.showConfirmDialog(null, "Use one attempt to take the test?",
                     "Start Test",
                     JOptionPane.YES_NO_OPTION,
                     JOptionPane.QUESTION_MESSAGE);
-            if (userInput == JOptionPane.YES_OPTION) {
-                attempts--;
-                attemptsLabel.setText(Integer.toString(attempts));
-                desktopScreen.setVisible(false);
-                gameScreen.setVisible(true);
-                userInfo.setVisible(false);
-                gameOver.setVisible(false);
-                instructionsScreen.setVisible(false);
-                loginScreen.setVisible(false);
-            } else if (userInput == JOptionPane.NO_OPTION) {
-                // do nothing
+                if (userInput == JOptionPane.YES_OPTION) {
+                    attempts--;
+                    attemptsLabel.setText(Integer.toString(attempts));
+                    desktopScreen.setVisible(false);
+                    gameScreen.setVisible(false);
+                    userInfo.setVisible(false);
+                    gameOver.setVisible(false);
+                    instructionsScreen.setVisible(false);
+                    loginScreen.setVisible(false);
+                    testChooserPanel.setVisible(true);
+                } else if (userInput == JOptionPane.NO_OPTION) {
+                    // do nothing
+                }
+            } else {
+                JOptionPane.showMessageDialog(rootPane, "You have already reached the level of Senior Software Engineer.", "Congratulations!", JOptionPane.OK_OPTION);
             }
-
         }
     }//GEN-LAST:event_startBtnActionPerformed
 
@@ -1439,19 +1885,40 @@ public class MainForm extends javax.swing.JFrame {
 
     private void backBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backBtnActionPerformed
         // TODO add your handling code here:
-        int userInput = JOptionPane.showConfirmDialog(null, "Are you sure you want to go back? Returning to the desktop screen will not give you your attempt back.",
-                "Return to Desktop Screen",
-                JOptionPane.YES_NO_OPTION,
-                JOptionPane.QUESTION_MESSAGE);
-        if (userInput == JOptionPane.YES_OPTION) {
+        if (numberOfQuestions == currentQuestionNumber) {
+            if (correctAnswers >= numberOfQuestions / 2) {
+                currentLevel++;
+                JOptionPane.showMessageDialog(rootPane, "You have successfully passed the promotion exam. You are now a " + position.get(currentLevel) + "!", "Test Done.", JOptionPane.OK_OPTION);
+                correctAnswers = 0;
+                if (currentLevel == 1) {
+                    attempts = 2;
+                } else if (currentLevel == 2) {
+                    attempts = 1;
+                }
+            } else {
+                JOptionPane.showMessageDialog(rootPane, "You have failed the promotion exam, you have " + attempts + " attempts left.", "Test Done.", JOptionPane.OK_OPTION);
+            }
             desktopScreen.setVisible(true);
             gameScreen.setVisible(false);
             userInfo.setVisible(false);
             gameOver.setVisible(false);
             instructionsScreen.setVisible(false);
             loginScreen.setVisible(false);
-        } else if (userInput == JOptionPane.NO_OPTION) {
-            // do nothing
+        } else {
+            int userInput = JOptionPane.showConfirmDialog(null, "Are you sure you want to go back? Returning to the desktop screen will not give you your attempt back.",
+                    "Return to Desktop Screen",
+                    JOptionPane.YES_NO_OPTION,
+                    JOptionPane.QUESTION_MESSAGE);
+            if (userInput == JOptionPane.YES_OPTION) {
+                desktopScreen.setVisible(true);
+                gameScreen.setVisible(false);
+                userInfo.setVisible(false);
+                gameOver.setVisible(false);
+                instructionsScreen.setVisible(false);
+                loginScreen.setVisible(false);
+            } else if (userInput == JOptionPane.NO_OPTION) {
+                // do nothing
+            }
         }
     }//GEN-LAST:event_backBtnActionPerformed
 
@@ -1478,6 +1945,11 @@ public class MainForm extends javax.swing.JFrame {
 
     private void showChoiceAActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_showChoiceAActionPerformed
         // TODO add your handling code here:
+        isGameScreenOpen = true;
+        photosPanel.setVisible(true);
+        gameScreen.setVisible(false);
+        String imageDir = "/Resources" + currentItem.getChoiceAImageFilename();
+        jLabel41.setIcon(new javax.swing.ImageIcon(getClass().getResource(imageDir)));
     }//GEN-LAST:event_showChoiceAActionPerformed
 
     private void backBtn2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backBtn2ActionPerformed
@@ -1492,12 +1964,29 @@ public class MainForm extends javax.swing.JFrame {
 
     private void playAgainBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_playAgainBtnActionPerformed
         // TODO add your handling code here:
-        desktopScreen.setVisible(true);
         gameScreen.setVisible(false);
         userInfo.setVisible(false);
         gameOver.setVisible(false);
         instructionsScreen.setVisible(false);
         loginScreen.setVisible(false);
+        desktopScreen.setVisible(true);
+            
+        currentLevel = 0;
+        currentCategory = 0;
+        currentTopicIndex = 0;
+        attempts = 3;
+        numberOfQuestions = 4;
+        isTheoreticalTestFirst = false;
+        isTheoreticalCurrent = false;
+        numberOfQuestions = 4;
+        isDoneChoosingProgQues = false;
+        isDoneChoosingTheoQues = false;
+        isGameScreenOpen = false;
+        correctAnswers = 0;
+        currentItem = null;
+        currentQuestionNumber = 0;
+        localCategory = "";
+        localTopic = "";
     }//GEN-LAST:event_playAgainBtnActionPerformed
 
     private void exitBtn2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exitBtn2ActionPerformed
@@ -1585,12 +2074,24 @@ public class MainForm extends javax.swing.JFrame {
 
     private void enterBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_enterBtnActionPerformed
         // TODO add your handling code here:
-        desktopScreen.setVisible(true);
-        gameScreen.setVisible(false);
-        userInfo.setVisible(false);
-        gameOver.setVisible(false);
-        instructionsScreen.setVisible(false);
-        loginScreen.setVisible(false);
+        if (jTextField1.getText().equals("") || jTextField2.getText().equals("") || jTextField3.getText().equals("") || jTextField4.getText().equals("")) {
+            JOptionPane.showMessageDialog(rootPane, "Please enter appropriate text for all text fields.", "Input Missing", JOptionPane.ERROR_MESSAGE);
+        } else {
+            desktopScreen.setVisible(true);
+            gameScreen.setVisible(false);
+            userInfo.setVisible(false);
+            gameOver.setVisible(false);
+            instructionsScreen.setVisible(false);
+            loginScreen.setVisible(false);
+            tTheoChooserPanel.setVisible(false);
+            testChooserPanel.setVisible(false);
+            tProgChooserPanel.setVisible(false);
+            
+            name = jTextField1.getText();
+            age = jTextField2.getText();
+            gender = jTextField3.getText();
+            residence = jTextField4.getText();
+        }
     }//GEN-LAST:event_enterBtnActionPerformed
 
     private void tool1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tool1ActionPerformed
@@ -1626,6 +2127,407 @@ public class MainForm extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_tool2ActionPerformed
+
+    private void userInfoComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_userInfoComponentShown
+        // TODO add your handling code here:
+        ageLabel.setText(age);
+        genderLabel.setText(gender);
+        addressLabel.setText(residence);
+        attemptsLabel.setText(Integer.toString(attempts));
+        usernameLabel.setText(name);
+        jobLabel.setText(position.get(currentLevel));
+    }//GEN-LAST:event_userInfoComponentShown
+
+    private void loginScreenComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_loginScreenComponentShown
+        // TODO add your handling code here:
+    }//GEN-LAST:event_loginScreenComponentShown
+
+    private void tTheoChooserPanelComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_tTheoChooserPanelComponentShown
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tTheoChooserPanelComponentShown
+
+    private void theoreticalCategoriesSubmitBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_theoreticalCategoriesSubmitBtnActionPerformed
+        // TODO add your handling code here:
+        isDoneChoosingTheoQues = true;
+        theoCategories = new ArrayList();
+        
+        int selected = 0;
+        if (tTheoOne.isSelected() == true) {
+            selected++;
+        }
+        if (tTheoTwo.isSelected() == true) {
+            selected++;
+        }
+        if (tTheoThree.isSelected() == true) {
+            selected++;
+        }
+        if (tTheoFour.isSelected() == true) {
+            selected++;
+        }
+        if (tTheoFive.isSelected() == true) {
+            selected++;
+        }
+        if (tTheoSix.isSelected() == true) {
+            selected++;
+        }
+        if (tTheoSeven.isSelected() == true) {
+            selected++;
+        }
+        if ((numberOfQuestions / 4) == selected) {
+            if (tTheoOne.isSelected() == true) {
+                theoCategories.add(tTheoOne.getText());
+            }
+            if (tTheoTwo.isSelected() == true) {
+                theoCategories.add(tTheoTwo.getText());
+            }
+            if (tTheoThree.isSelected() == true) {
+                theoCategories.add(tTheoThree.getText());
+            }
+            if (tTheoFour.isSelected() == true) {
+                theoCategories.add(tTheoFour.getText());
+            }
+            if (tTheoFive.isSelected() == true) {
+                theoCategories.add(tTheoFive.getText());
+            }
+            if (tTheoSix.isSelected() == true) {
+                theoCategories.add(tTheoSix.getText());
+            }
+            if (tTheoSeven.isSelected() == true) {
+                theoCategories.add(tTheoSeven.getText());
+            }
+            
+            tTheoChooserPanel.setVisible(false);
+            
+            if (isDoneChoosingProgQues == true) {
+                gameScreen.setVisible(true);
+            } else {
+                tProgChooserPanel.setVisible(true);
+            }
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Too many or two few categories selected.", "Please try again", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_theoreticalCategoriesSubmitBtnActionPerformed
+
+    private void theoreticalBtn1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_theoreticalBtn1ActionPerformed
+        // TODO add your handling code here:
+        isTheoreticalTestFirst = true;
+        testChooserPanel.setVisible(false);
+        tTheoChooserPanel.setVisible(true);
+    }//GEN-LAST:event_theoreticalBtn1ActionPerformed
+
+    private void testChooserPanelComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_testChooserPanelComponentShown
+        // TODO add your handling code here:
+    }//GEN-LAST:event_testChooserPanelComponentShown
+
+    private void programmingCategoriesSubmitBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_programmingCategoriesSubmitBtnActionPerformed
+        // TODO add your handling code here:
+        isDoneChoosingProgQues = true;
+        progCategories = new ArrayList();
+        
+        int selected = 0;
+        if (tProgOne.isSelected() == true) {
+            selected++;
+        }
+        if (tProgTwo.isSelected() == true) {
+            selected++;
+        }
+        if (tProgThree.isSelected() == true) {
+            selected++;
+        }
+        if (tProgFour.isSelected() == true) {
+            selected++;
+        }
+        
+        if ((numberOfQuestions / 4) == selected) {
+            if (tProgOne.isSelected() == true) {
+                progCategories.add(tProgOne.getText());
+            }
+            if (tProgTwo.isSelected() == true) {
+                progCategories.add(tProgTwo.getText());
+            }
+            if (tProgThree.isSelected() == true) {
+                progCategories.add(tProgThree.getText());
+            }
+            if (tProgFour.isSelected() == true) {
+                progCategories.add(tProgFour.getText());
+            }
+            
+            tProgChooserPanel.setVisible(false);
+            
+            if (isDoneChoosingTheoQues == true) {
+                gameScreen.setVisible(true);
+            } else {
+                tTheoChooserPanel.setVisible(true);
+            }
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Too many or two few categories selected.", "Please try again", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_programmingCategoriesSubmitBtnActionPerformed
+
+    private void tProgChooserPanelComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_tProgChooserPanelComponentShown
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tProgChooserPanelComponentShown
+
+    private void programmingBtn1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_programmingBtn1ActionPerformed
+        // TODO add your handling code here:
+        isTheoreticalTestFirst = false;
+        testChooserPanel.setVisible(false);
+        tProgChooserPanel.setVisible(true);
+    }//GEN-LAST:event_programmingBtn1ActionPerformed
+
+    private void desktopScreenComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_desktopScreenComponentShown
+        // TODO add your handling code here:
+        if (currentLevel == 0) {
+           numberOfQuestions = 4;
+        } else if (currentLevel == 1) {
+            numberOfQuestions = 8;
+        } else if (currentLevel == 2) {
+            numberOfQuestions = 12;
+        }
+        if (attempts == 0) {
+            desktopScreen.setVisible(false);
+            gameOver.setVisible(true);
+        }
+    }//GEN-LAST:event_desktopScreenComponentShown
+
+    private void loadGame() {
+        isDoneChoosingTheoQues = false;
+        isDoneChoosingProgQues = false;
+        correctAnswers = 0;
+        currentTopicIndex = 0;
+        localCategory = isTheoreticalTestFirst ? "Theoretical" : "Programming";
+        currentQuestionNumber = 1;
+        String header = localCategory + " - " + "Question " + currentQuestionNumber + " out of " + numberOfQuestions;
+        String correctAnswersHeader = "Correct Answers: " + correctAnswers + "/" + numberOfQuestions;
+      
+        if (localCategory.equals("Theoretical")) {
+            localTopic = theoCategories.get(currentCategory);
+            isTheoreticalCurrent = true;
+        } else {
+            localTopic = progCategories.get(currentCategory);
+            isTheoreticalCurrent = false;
+        }
+        currentItem = RandomizedItemChooser.choose(database, localTopic, localCategory);
+        currentItem.changeIsAnsweredToTrue();
+        
+        currentQuestionOutOfTotalLabel.setText(header);
+        questionLabel.setText(currentItem.getQuestion());
+            choiceA.setText("<html>" + currentItem.getChoiceOne() + "</html>");
+            choiceB.setText("<html>" + currentItem.getChoiceTwo() + "</html>");
+            choiceC.setText("<html>" + currentItem.getChoiceThree() + "</html>");
+            choiceD.setText("<html>" + currentItem.getChoiceFour() + "</html>");
+        
+        if (currentItem.getQuestionImageFilename().equals("")) {
+            showImageBtn.setEnabled(false);
+        } else {
+            showImageBtn.setEnabled(true);
+        }
+        
+        if (currentItem.getChoiceAImageFilename().equals("")) {
+            showChoiceA.setEnabled(false);
+        } else {
+            showChoiceA.setEnabled(true);
+        }
+        
+        if (currentItem.getChoiceBImageFilename().equals("")) {
+            showChoiceB.setEnabled(false);
+        } else {
+            showChoiceB.setEnabled(true);
+        }
+        
+        if (currentItem.getChoiceCImageFilename().equals("")) {
+            showChoiceC.setEnabled(false);
+        } else {
+            showChoiceC.setEnabled(true);
+        }
+        
+        if (currentItem.getChoiceDImageFilename().equals("")) {
+            showChoiceD.setEnabled(false);
+        } else {
+            showChoiceD.setEnabled(true);
+        }
+        
+        correctAnswersLabel.setText(correctAnswersHeader);
+        tTheoOne.setSelected(false);
+        tTheoTwo.setSelected(false);
+        tTheoThree.setSelected(false);
+        tTheoFour.setSelected(false);
+        tTheoFive.setSelected(false);
+        tTheoSix.setSelected(false);
+        tTheoSeven.setSelected(false);
+        tProgOne.setSelected(false);
+        tProgTwo.setSelected(false);
+        tProgThree.setSelected(false);
+        tProgFour.setSelected(false);
+        
+    }
+    
+    
+    private void loadGame(String letter) {
+        if (numberOfQuestions == currentQuestionNumber) {
+            JOptionPane.showMessageDialog(rootPane, "Test done.", "Please exit test.", JOptionPane.OK_OPTION);
+        } else {
+            currentTopicIndex++;
+            currentQuestionNumber++;
+            if (letter.equals(currentItem.getCorrectChoice())) {
+                correctAnswers++;
+            }
+            String correctAnswersHeader = "Correct Answers: " + correctAnswers + "/" + numberOfQuestions;
+
+            if ((numberOfQuestions / currentQuestionNumber) < 2) {
+                isTheoreticalCurrent = !isTheoreticalTestFirst;
+                currentTopicIndex = 0;
+            }
+            localCategory = isTheoreticalCurrent ? "Theoretical" : "Programming";
+
+            if (currentTopicIndex == 0 || currentTopicIndex == 1) {
+                currentCategory = 0;
+            } else if (currentTopicIndex == 2 || currentTopicIndex == 3) {
+                currentCategory = 1;
+            } else if (currentTopicIndex == 3 || currentTopicIndex == 4) {
+                currentCategory = 2;
+            }
+
+            if (localCategory.equals("Theoretical")) {
+                localTopic = theoCategories.get(currentCategory);
+                isTheoreticalCurrent = true;
+            } else {
+                localTopic = progCategories.get(currentCategory);
+                isTheoreticalCurrent = false;
+            }
+
+            String header = localCategory + " - " + "Question " + currentQuestionNumber + " out of " + numberOfQuestions;
+
+            currentItem = RandomizedItemChooser.choose(database, localTopic, localCategory);
+            currentItem.changeIsAnsweredToTrue();
+
+            currentQuestionOutOfTotalLabel.setText(header);
+            correctAnswersLabel.setText(correctAnswersHeader);
+            questionLabel.setText(currentItem.getQuestion());
+            choiceA.setText("<html>" + currentItem.getChoiceOne() + "</html>");
+            choiceB.setText("<html>" + currentItem.getChoiceTwo() + "</html>");
+            choiceC.setText("<html>" + currentItem.getChoiceThree() + "</html>");
+            choiceD.setText("<html>" + currentItem.getChoiceFour() + "</html>");
+            
+            if (currentItem.getQuestionImageFilename().equals("")) {
+                showImageBtn.setEnabled(false);
+            } else {
+                showImageBtn.setEnabled(true);
+            }
+
+            if (currentItem.getChoiceAImageFilename().equals("")) {
+                showChoiceA.setEnabled(false);
+            } else {
+                showChoiceA.setEnabled(true);
+            }
+
+            if (currentItem.getChoiceBImageFilename().equals("")) {
+                showChoiceB.setEnabled(false);
+            } else {
+                showChoiceB.setEnabled(true);
+            }
+
+            if (currentItem.getChoiceCImageFilename().equals("")) {
+                showChoiceC.setEnabled(false);
+            } else {
+                showChoiceC.setEnabled(true);
+            }
+
+            if (currentItem.getChoiceDImageFilename().equals("")) {
+                showChoiceD.setEnabled(false);
+            } else {
+                showChoiceD.setEnabled(true);
+            }
+        
+        }
+    }
+    private void gameScreenComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_gameScreenComponentShown
+        // TODO add your handling code here:
+        if (!isGameScreenOpen) {
+            loadGame();
+        }
+        isGameScreenOpen = false;
+    }//GEN-LAST:event_gameScreenComponentShown
+
+    private void choiceAActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_choiceAActionPerformed
+        // TODO add your handling code here:
+        loadGame("A");
+    }//GEN-LAST:event_choiceAActionPerformed
+
+    private void choiceBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_choiceBActionPerformed
+        // TODO add your handling code here:
+        loadGame("B");
+    }//GEN-LAST:event_choiceBActionPerformed
+
+    private void choiceCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_choiceCActionPerformed
+        // TODO add your handling code here:
+        loadGame("C");
+    }//GEN-LAST:event_choiceCActionPerformed
+
+    private void choiceDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_choiceDActionPerformed
+        // TODO add your handling code here:
+        loadGame("D");
+    }//GEN-LAST:event_choiceDActionPerformed
+
+    private void backBtn5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backBtn5ActionPerformed
+        // TODO add your handling code here:
+        photosPanel.setVisible(false);
+        gameScreen.setVisible(true);
+    }//GEN-LAST:event_backBtn5ActionPerformed
+
+    private void photosPanelComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_photosPanelComponentShown
+        // TODO add your handling code here:
+    }//GEN-LAST:event_photosPanelComponentShown
+
+    private void showImageBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_showImageBtnActionPerformed
+        // TODO add your handling code here:
+        isGameScreenOpen = true;
+        photosPanel.setVisible(true);
+        gameScreen.setVisible(false);
+        String imageDir = "/Resources" + currentItem.getQuestionImageFilename();
+        jLabel41.setIcon(new javax.swing.ImageIcon(getClass().getResource(imageDir)));
+        
+    }//GEN-LAST:event_showImageBtnActionPerformed
+
+    private void showChoiceBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_showChoiceBActionPerformed
+        // TODO add your handling code here:
+        isGameScreenOpen = true;
+        photosPanel.setVisible(true);
+        gameScreen.setVisible(false);
+        String imageDir = "/Resources" + currentItem.getChoiceBImageFilename();
+        jLabel41.setIcon(new javax.swing.ImageIcon(getClass().getResource(imageDir)));
+    }//GEN-LAST:event_showChoiceBActionPerformed
+
+    private void showChoiceCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_showChoiceCActionPerformed
+        // TODO add your handling code here:
+        isGameScreenOpen = true;
+        photosPanel.setVisible(true);
+        gameScreen.setVisible(false);
+        String imageDir = "/Resources" + currentItem.getChoiceCImageFilename();
+        jLabel41.setIcon(new javax.swing.ImageIcon(getClass().getResource(imageDir)));
+    }//GEN-LAST:event_showChoiceCActionPerformed
+
+    private void showChoiceDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_showChoiceDActionPerformed
+        // TODO add your handling code here:
+        isGameScreenOpen = true;
+        photosPanel.setVisible(true);
+        gameScreen.setVisible(false);
+        String imageDir = "/Resources" + currentItem.getChoiceDImageFilename();
+        jLabel41.setIcon(new javax.swing.ImageIcon(getClass().getResource(imageDir)));
+    }//GEN-LAST:event_showChoiceDActionPerformed
+
+    private void choiceAComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_choiceAComponentShown
+        // TODO add your handling code here:
+    }//GEN-LAST:event_choiceAComponentShown
+
+    private void jLabel27ComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_jLabel27ComponentShown
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jLabel27ComponentShown
+
+    private void gameOverComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_gameOverComponentShown
+        // TODO add your handling code here:
+        jobLabel2.setText(position.get(currentLevel));
+    }//GEN-LAST:event_gameOverComponentShown
 
     /**
      * @param args the command line arguments
@@ -1670,6 +2572,7 @@ public class MainForm extends javax.swing.JFrame {
     private javax.swing.JButton backBtn2;
     private javax.swing.JButton backBtn3;
     private javax.swing.JButton backBtn4;
+    private javax.swing.JButton backBtn5;
     private javax.swing.JButton choiceA;
     private javax.swing.JButton choiceB;
     private javax.swing.JButton choiceC;
@@ -1720,17 +2623,23 @@ public class MainForm extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel39;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel40;
+    private javax.swing.JLabel jLabel41;
     private javax.swing.JLabel jLabel42;
     private javax.swing.JLabel jLabel44;
+    private javax.swing.JLabel jLabel45;
+    private javax.swing.JLabel jLabel46;
+    private javax.swing.JLabel jLabel47;
     private javax.swing.JLabel jLabel48;
+    private javax.swing.JLabel jLabel49;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel50;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JLayeredPane jLayeredPane1;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel11;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
@@ -1739,6 +2648,7 @@ public class MainForm extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTextArea jTextArea1;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
@@ -1747,8 +2657,11 @@ public class MainForm extends javax.swing.JFrame {
     private javax.swing.JLabel jobLabel;
     private javax.swing.JLabel jobLabel2;
     private javax.swing.JPanel loginScreen;
+    private javax.swing.JPanel photosPanel;
     private javax.swing.JButton playAgainBtn;
-    private javax.swing.JLabel questionLabel;
+    private javax.swing.JButton programmingBtn1;
+    private javax.swing.JButton programmingCategoriesSubmitBtn;
+    private javax.swing.JTextArea questionLabel;
     private javax.swing.JButton readMeBtn;
     private javax.swing.JButton showChoiceA;
     private javax.swing.JButton showChoiceB;
@@ -1762,6 +2675,22 @@ public class MainForm extends javax.swing.JFrame {
     private javax.swing.JButton soundBtn5;
     private javax.swing.JButton startBtn;
     private javax.swing.JButton sysFilesBtn;
+    private javax.swing.JPanel tProgChooserPanel;
+    private javax.swing.JCheckBox tProgFour;
+    private javax.swing.JCheckBox tProgOne;
+    private javax.swing.JCheckBox tProgThree;
+    private javax.swing.JCheckBox tProgTwo;
+    private javax.swing.JPanel tTheoChooserPanel;
+    private javax.swing.JCheckBox tTheoFive;
+    private javax.swing.JCheckBox tTheoFour;
+    private javax.swing.JCheckBox tTheoOne;
+    private javax.swing.JCheckBox tTheoSeven;
+    private javax.swing.JCheckBox tTheoSix;
+    private javax.swing.JCheckBox tTheoThree;
+    private javax.swing.JCheckBox tTheoTwo;
+    private javax.swing.JPanel testChooserPanel;
+    private javax.swing.JButton theoreticalBtn1;
+    private javax.swing.JButton theoreticalCategoriesSubmitBtn;
     private javax.swing.JButton tool1;
     private javax.swing.JButton tool2;
     private javax.swing.JButton userBtn;
