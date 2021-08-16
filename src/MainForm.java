@@ -1,4 +1,4 @@
-
+import java.util.Random;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.logging.Level;
@@ -55,6 +55,8 @@ public class MainForm extends javax.swing.JFrame {
     public ArrayList<String> theoCategories = null;
     public ArrayList<String> progCategories = null;
     public ArrayList<String> position = null;
+    public ArrayList<String> toolOneArrayOne = null;
+    public ArrayList<String> toolOneArrayTwo = null;
 
     /**
      * Creates new form MainForm
@@ -73,6 +75,8 @@ public class MainForm extends javax.swing.JFrame {
         testChooserPanel.setVisible(false);
         tProgChooserPanel.setVisible(false);
         photosPanel.setVisible(false);
+        systemFilesScreen.setVisible(false);
+        possibleAnswersScreen1.setVisible(false);
 
         //reflect necessary information on screen
         attemptsLabel.setText(Integer.toString(attempts));
@@ -245,6 +249,22 @@ public class MainForm extends javax.swing.JFrame {
         jPanel11 = new javax.swing.JPanel();
         jLabel41 = new javax.swing.JLabel();
         backBtn5 = new javax.swing.JButton();
+        systemFilesScreen = new javax.swing.JPanel();
+        jPanel10 = new javax.swing.JPanel();
+        jLabel43 = new javax.swing.JLabel();
+        jPanel12 = new javax.swing.JPanel();
+        possibleAnswers = new javax.swing.JButton();
+        jLabel52 = new javax.swing.JLabel();
+        jLabel51 = new javax.swing.JLabel();
+        possibleAnswersScreen1 = new javax.swing.JPanel();
+        possibleAnswer1 = new javax.swing.JPanel();
+        jLabel55 = new javax.swing.JLabel();
+        jLabel53 = new javax.swing.JLabel();
+        jLabel54 = new javax.swing.JLabel();
+        jLabel56 = new javax.swing.JLabel();
+        posAnswer1 = new javax.swing.JLabel();
+        posAnswer2 = new javax.swing.JLabel();
+        backBtn7 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(640, 480));
@@ -254,7 +274,6 @@ public class MainForm extends javax.swing.JFrame {
         jLayeredPane1.setBackground(new java.awt.Color(255, 255, 255));
         jLayeredPane1.setMaximumSize(new java.awt.Dimension(640, 480));
         jLayeredPane1.setMinimumSize(new java.awt.Dimension(640, 480));
-        jLayeredPane1.setPreferredSize(new java.awt.Dimension(640, 480));
 
         desktopScreen.setBackground(new java.awt.Color(51, 255, 255));
         desktopScreen.setMaximumSize(new java.awt.Dimension(640, 480));
@@ -421,7 +440,7 @@ public class MainForm extends javax.swing.JFrame {
                 .addComponent(jLabel14)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 252, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 251, Short.MAX_VALUE)
                 .addComponent(soundBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel15)
@@ -487,8 +506,7 @@ public class MainForm extends javax.swing.JFrame {
                                         .addGap(184, 184, 184))
                                     .addGroup(desktopScreenLayout.createSequentialGroup()
                                         .addGap(91, 91, 91)
-                                        .addComponent(jLabel11)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
+                                        .addComponent(jLabel11)))))
                         .addGap(13, 13, 13)
                         .addGroup(desktopScreenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, desktopScreenLayout.createSequentialGroup()
@@ -762,7 +780,7 @@ public class MainForm extends javax.swing.JFrame {
                         .addGroup(gameScreenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(choiceA, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(choiceC, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 25, Short.MAX_VALUE)
                         .addGroup(gameScreenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(choiceB, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(choiceD, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))))
@@ -1238,7 +1256,7 @@ public class MainForm extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jLabel37, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(instructionsScreenLayout.createSequentialGroup()
-                        .addContainerGap(28, Short.MAX_VALUE)
+                        .addContainerGap(38, Short.MAX_VALUE)
                         .addComponent(soundBtn4, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -1264,7 +1282,7 @@ public class MainForm extends javax.swing.JFrame {
                 .addGroup(instructionsScreenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(instructionsScreenLayout.createSequentialGroup()
                         .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(44, Short.MAX_VALUE))
+                        .addContainerGap(66, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, instructionsScreenLayout.createSequentialGroup()
                         .addComponent(soundBtn4, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(58, 58, 58))))
@@ -1406,7 +1424,7 @@ public class MainForm extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jLabel39, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(loginScreenLayout.createSequentialGroup()
-                        .addContainerGap(91, Short.MAX_VALUE)
+                        .addContainerGap(93, Short.MAX_VALUE)
                         .addComponent(soundBtn5, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1673,7 +1691,7 @@ public class MainForm extends javax.swing.JFrame {
             jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel11Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel41, javax.swing.GroupLayout.DEFAULT_SIZE, 385, Short.MAX_VALUE)
+                .addComponent(jLabel41, javax.swing.GroupLayout.DEFAULT_SIZE, 407, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -1695,7 +1713,7 @@ public class MainForm extends javax.swing.JFrame {
             .addGroup(photosPanelLayout.createSequentialGroup()
                 .addGap(22, 22, 22)
                 .addComponent(backBtn5, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(530, Short.MAX_VALUE))
+                .addContainerGap(545, Short.MAX_VALUE))
         );
         photosPanelLayout.setVerticalGroup(
             photosPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1704,6 +1722,204 @@ public class MainForm extends javax.swing.JFrame {
                 .addComponent(backBtn5)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+
+        systemFilesScreen.setBackground(new java.awt.Color(51, 255, 255));
+
+        jPanel10.setBackground(new java.awt.Color(255, 255, 255));
+
+        jLabel43.setFont(new java.awt.Font("Sitka Text", 1, 18)); // NOI18N
+        jLabel43.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel43.setText("System Files");
+
+        javax.swing.GroupLayout jPanel10Layout = new javax.swing.GroupLayout(jPanel10);
+        jPanel10.setLayout(jPanel10Layout);
+        jPanel10Layout.setHorizontalGroup(
+            jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel10Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel43, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        jPanel10Layout.setVerticalGroup(
+            jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel10Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel43, javax.swing.GroupLayout.DEFAULT_SIZE, 28, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+
+        jPanel12.setBackground(new java.awt.Color(255, 255, 255));
+
+        possibleAnswers.setBackground(new java.awt.Color(51, 255, 255));
+        possibleAnswers.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/Icons/file-icon.png"))); // NOI18N
+        possibleAnswers.setBorder(null);
+        possibleAnswers.setBorderPainted(false);
+        possibleAnswers.setContentAreaFilled(false);
+        possibleAnswers.setMaximumSize(new java.awt.Dimension(32, 32));
+        possibleAnswers.setMinimumSize(new java.awt.Dimension(32, 32));
+        possibleAnswers.setPreferredSize(new java.awt.Dimension(32, 32));
+        possibleAnswers.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                possibleAnswersActionPerformed(evt);
+            }
+        });
+
+        jLabel52.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel52.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel52.setText("Possible Answers.txt");
+
+        javax.swing.GroupLayout jPanel12Layout = new javax.swing.GroupLayout(jPanel12);
+        jPanel12.setLayout(jPanel12Layout);
+        jPanel12Layout.setHorizontalGroup(
+            jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel12Layout.createSequentialGroup()
+                .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel12Layout.createSequentialGroup()
+                        .addGap(56, 56, 56)
+                        .addComponent(possibleAnswers, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel12Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabel52)))
+                .addContainerGap(377, Short.MAX_VALUE))
+        );
+        jPanel12Layout.setVerticalGroup(
+            jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel12Layout.createSequentialGroup()
+                .addGap(23, 23, 23)
+                .addComponent(possibleAnswers, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel52)
+                .addContainerGap(262, Short.MAX_VALUE))
+        );
+
+        jLabel51.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/Icons/logo_small.png"))); // NOI18N
+
+        javax.swing.GroupLayout systemFilesScreenLayout = new javax.swing.GroupLayout(systemFilesScreen);
+        systemFilesScreen.setLayout(systemFilesScreenLayout);
+        systemFilesScreenLayout.setHorizontalGroup(
+            systemFilesScreenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, systemFilesScreenLayout.createSequentialGroup()
+                .addGroup(systemFilesScreenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(systemFilesScreenLayout.createSequentialGroup()
+                        .addGap(204, 204, 204)
+                        .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel51, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(systemFilesScreenLayout.createSequentialGroup()
+                        .addContainerGap(70, Short.MAX_VALUE)
+                        .addComponent(jPanel12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(60, 60, 60))
+        );
+        systemFilesScreenLayout.setVerticalGroup(
+            systemFilesScreenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(systemFilesScreenLayout.createSequentialGroup()
+                .addGroup(systemFilesScreenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(systemFilesScreenLayout.createSequentialGroup()
+                        .addGap(28, 28, 28)
+                        .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, systemFilesScreenLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabel51)
+                        .addGap(27, 27, 27)))
+                .addComponent(jPanel12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(44, Short.MAX_VALUE))
+        );
+
+        possibleAnswersScreen1.setBackground(new java.awt.Color(51, 255, 255));
+        possibleAnswersScreen1.setPreferredSize(new java.awt.Dimension(640, 480));
+        possibleAnswersScreen1.addComponentListener(new java.awt.event.ComponentAdapter() {
+            public void componentShown(java.awt.event.ComponentEvent evt) {
+                possibleAnswersScreen1ComponentShown(evt);
+            }
+        });
+
+        possibleAnswer1.setBackground(new java.awt.Color(255, 255, 255));
+        possibleAnswer1.addComponentListener(new java.awt.event.ComponentAdapter() {
+            public void componentShown(java.awt.event.ComponentEvent evt) {
+                possibleAnswer1ComponentShown(evt);
+            }
+        });
+
+        jLabel53.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel53.setText("Possible Answers.txt");
+
+        jLabel54.setText("1.");
+
+        jLabel56.setText("2.");
+
+        javax.swing.GroupLayout possibleAnswer1Layout = new javax.swing.GroupLayout(possibleAnswer1);
+        possibleAnswer1.setLayout(possibleAnswer1Layout);
+        possibleAnswer1Layout.setHorizontalGroup(
+            possibleAnswer1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(possibleAnswer1Layout.createSequentialGroup()
+                .addGroup(possibleAnswer1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(possibleAnswer1Layout.createSequentialGroup()
+                        .addGap(238, 238, 238)
+                        .addComponent(jLabel53))
+                    .addGroup(possibleAnswer1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabel56)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(posAnswer2, javax.swing.GroupLayout.PREFERRED_SIZE, 575, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(possibleAnswer1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabel54)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(posAnswer1, javax.swing.GroupLayout.PREFERRED_SIZE, 575, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel55, javax.swing.GroupLayout.DEFAULT_SIZE, 3, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        possibleAnswer1Layout.setVerticalGroup(
+            possibleAnswer1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(possibleAnswer1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(possibleAnswer1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(possibleAnswer1Layout.createSequentialGroup()
+                        .addComponent(jLabel53)
+                        .addGap(23, 23, 23)
+                        .addGroup(possibleAnswer1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel54)
+                            .addComponent(posAnswer1))
+                        .addGap(50, 50, 50)
+                        .addGroup(possibleAnswer1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel56)
+                            .addComponent(posAnswer2))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(jLabel55, javax.swing.GroupLayout.DEFAULT_SIZE, 407, Short.MAX_VALUE))
+                .addContainerGap())
+        );
+
+        backBtn7.setText("Back");
+        backBtn7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                backBtn7ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout possibleAnswersScreen1Layout = new javax.swing.GroupLayout(possibleAnswersScreen1);
+        possibleAnswersScreen1.setLayout(possibleAnswersScreen1Layout);
+        possibleAnswersScreen1Layout.setHorizontalGroup(
+            possibleAnswersScreen1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(possibleAnswersScreen1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(possibleAnswer1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+            .addGroup(possibleAnswersScreen1Layout.createSequentialGroup()
+                .addGap(22, 22, 22)
+                .addComponent(backBtn7, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(545, Short.MAX_VALUE))
+        );
+        possibleAnswersScreen1Layout.setVerticalGroup(
+            possibleAnswersScreen1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(possibleAnswersScreen1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(backBtn7)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(possibleAnswer1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -1717,17 +1933,19 @@ public class MainForm extends javax.swing.JFrame {
         jLayeredPane1.setLayer(testChooserPanel, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jLayeredPane1.setLayer(tProgChooserPanel, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jLayeredPane1.setLayer(photosPanel, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPane1.setLayer(systemFilesScreen, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPane1.setLayer(possibleAnswersScreen1, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         javax.swing.GroupLayout jLayeredPane1Layout = new javax.swing.GroupLayout(jLayeredPane1);
         jLayeredPane1.setLayout(jLayeredPane1Layout);
         jLayeredPane1Layout.setHorizontalGroup(
             jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jLayeredPane1Layout.createSequentialGroup()
-                .addComponent(desktopScreen, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(desktopScreen, javax.swing.GroupLayout.DEFAULT_SIZE, 650, Short.MAX_VALUE)
                 .addContainerGap())
             .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jLayeredPane1Layout.createSequentialGroup()
-                    .addComponent(gameScreen, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(gameScreen, javax.swing.GroupLayout.DEFAULT_SIZE, 650, Short.MAX_VALUE)
                     .addContainerGap()))
             .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jLayeredPane1Layout.createSequentialGroup()
@@ -1743,34 +1961,44 @@ public class MainForm extends javax.swing.JFrame {
                     .addContainerGap()))
             .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jLayeredPane1Layout.createSequentialGroup()
-                    .addComponent(loginScreen, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(loginScreen, javax.swing.GroupLayout.DEFAULT_SIZE, 650, Short.MAX_VALUE)
                     .addContainerGap()))
             .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jLayeredPane1Layout.createSequentialGroup()
                     .addContainerGap()
-                    .addComponent(tTheoChooserPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 630, Short.MAX_VALUE)
+                    .addComponent(tTheoChooserPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addContainerGap()))
             .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jLayeredPane1Layout.createSequentialGroup()
                     .addContainerGap()
-                    .addComponent(testChooserPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 630, Short.MAX_VALUE)
+                    .addComponent(testChooserPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addContainerGap()))
             .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jLayeredPane1Layout.createSequentialGroup()
                     .addContainerGap()
-                    .addComponent(tProgChooserPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 630, Short.MAX_VALUE)
+                    .addComponent(tProgChooserPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addContainerGap()))
             .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jLayeredPane1Layout.createSequentialGroup()
                     .addContainerGap()
-                    .addComponent(photosPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 625, Short.MAX_VALUE)
+                    .addComponent(photosPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 635, Short.MAX_VALUE)
+                    .addGap(15, 15, 15)))
+            .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jLayeredPane1Layout.createSequentialGroup()
+                    .addContainerGap()
+                    .addComponent(systemFilesScreen, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addContainerGap()))
+            .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jLayeredPane1Layout.createSequentialGroup()
+                    .addContainerGap()
+                    .addComponent(possibleAnswersScreen1, javax.swing.GroupLayout.PREFERRED_SIZE, 635, Short.MAX_VALUE)
                     .addGap(15, 15, 15)))
         );
         jLayeredPane1Layout.setVerticalGroup(
             jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(desktopScreen, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(desktopScreen, javax.swing.GroupLayout.DEFAULT_SIZE, 524, Short.MAX_VALUE)
             .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(gameScreen, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(gameScreen, javax.swing.GroupLayout.DEFAULT_SIZE, 524, Short.MAX_VALUE))
             .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addComponent(userInfo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1778,27 +2006,37 @@ public class MainForm extends javax.swing.JFrame {
             .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addComponent(instructionsScreen, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(loginScreen, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(loginScreen, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 524, Short.MAX_VALUE))
             .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jLayeredPane1Layout.createSequentialGroup()
                     .addGap(10, 10, 10)
-                    .addComponent(tTheoChooserPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 459, Short.MAX_VALUE)
+                    .addComponent(tTheoChooserPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 503, Short.MAX_VALUE)
                     .addContainerGap()))
             .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jLayeredPane1Layout.createSequentialGroup()
                     .addContainerGap()
-                    .addComponent(testChooserPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 458, Short.MAX_VALUE)
+                    .addComponent(testChooserPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 502, Short.MAX_VALUE)
                     .addGap(11, 11, 11)))
             .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jLayeredPane1Layout.createSequentialGroup()
                     .addContainerGap()
-                    .addComponent(tProgChooserPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 458, Short.MAX_VALUE)
+                    .addComponent(tProgChooserPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 502, Short.MAX_VALUE)
                     .addGap(11, 11, 11)))
             .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jLayeredPane1Layout.createSequentialGroup()
                     .addContainerGap()
-                    .addComponent(photosPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 458, Short.MAX_VALUE)
+                    .addComponent(photosPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 502, Short.MAX_VALUE)
                     .addContainerGap()))
+            .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jLayeredPane1Layout.createSequentialGroup()
+                    .addContainerGap()
+                    .addComponent(systemFilesScreen, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addContainerGap()))
+            .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jLayeredPane1Layout.createSequentialGroup()
+                    .addContainerGap()
+                    .addComponent(possibleAnswersScreen1, javax.swing.GroupLayout.DEFAULT_SIZE, 491, Short.MAX_VALUE)
+                    .addGap(22, 22, 22)))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -1838,12 +2076,18 @@ public class MainForm extends javax.swing.JFrame {
 
     private void sysFilesBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sysFilesBtnActionPerformed
         // TODO add your handling code here:
-        desktopScreen.setVisible(false);
-        gameScreen.setVisible(false);
-        userInfo.setVisible(false);
-        gameOver.setVisible(false);
-        instructionsScreen.setVisible(false);
-        loginScreen.setVisible(false);
+        if (isGameScreenOpen == true) {
+            desktopScreen.setVisible(false);
+            gameScreen.setVisible(false);
+            userInfo.setVisible(false);
+            gameOver.setVisible(false);
+            instructionsScreen.setVisible(false);
+            loginScreen.setVisible(false);
+            systemFilesScreen.setVisible(true);
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "You do not have sufficent permissions to view this folder.", "Access Denied", JOptionPane.ERROR_MESSAGE);
+        }
+        
     }//GEN-LAST:event_sysFilesBtnActionPerformed
 
     private void readMeBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_readMeBtnActionPerformed
@@ -1891,34 +2135,40 @@ public class MainForm extends javax.swing.JFrame {
 
     private void startBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_startBtnActionPerformed
         // TODO add your handling code here:
-        if (attempts == 0) {
+        if (isGameScreenOpen == true) {
+            desktopScreen.setVisible(false);
+            gameScreen.setVisible(true);
+        } else {
+            if (attempts == 0) {
             JOptionPane.showMessageDialog(null,
                     "You do not have any attempts left.",
                     "No more attemps!",
                     JOptionPane.WARNING_MESSAGE);
-        } else {
-            if (currentLevel < 3) {
-                int userInput = JOptionPane.showConfirmDialog(null, "Use one attempt to take the test?",
-                        "Start Test",
-                        JOptionPane.YES_NO_OPTION,
-                        JOptionPane.QUESTION_MESSAGE);
-                if (userInput == JOptionPane.YES_OPTION) {
-                    attempts--;
-                    attemptsLabel.setText(Integer.toString(attempts));
-                    tool2Charge = 1;
-                    desktopScreen.setVisible(false);
-                    gameScreen.setVisible(false);
-                    userInfo.setVisible(false);
-                    gameOver.setVisible(false);
-                    instructionsScreen.setVisible(false);
-                    loginScreen.setVisible(false);
-                    testChooserPanel.setVisible(true);
-                } else if (userInput == JOptionPane.NO_OPTION) {
-                    // do nothing
-                }
             } else {
-                JOptionPane.showMessageDialog(rootPane, "You have already reached the level of Senior Software Engineer.", "Congratulations!", JOptionPane.OK_OPTION);
-            }
+                if (currentLevel < 3) {
+                        int userInput = JOptionPane.showConfirmDialog(null, "Use one attempt to take the test?",
+                                "Start Test",
+                                JOptionPane.YES_NO_OPTION,
+                                JOptionPane.QUESTION_MESSAGE);
+                        if (userInput == JOptionPane.YES_OPTION) {
+                            attempts--;
+                            attemptsLabel.setText(Integer.toString(attempts));
+                            tool1Charge = 1;
+                            tool2Charge = 1;
+                            desktopScreen.setVisible(false);
+                            gameScreen.setVisible(false);
+                            userInfo.setVisible(false);
+                            gameOver.setVisible(false);
+                            instructionsScreen.setVisible(false);
+                            loginScreen.setVisible(false);
+                            testChooserPanel.setVisible(true);
+                        } else if (userInput == JOptionPane.NO_OPTION) {
+                            // do nothing
+                        }
+                    } else {
+                        JOptionPane.showMessageDialog(rootPane, "You have already reached the level of Senior Software Engineer.", "Congratulations!", JOptionPane.OK_OPTION);
+                    }
+                }
         }
     }//GEN-LAST:event_startBtnActionPerformed
 
@@ -2166,6 +2416,68 @@ public class MainForm extends javax.swing.JFrame {
 
     private void tool1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tool1ActionPerformed
         // TODO add your handling code here:
+        String answer = currentItem.getCorrectChoice();
+        if (tool1Charge == 0) {
+            JOptionPane.showMessageDialog(null,
+                    "You do not have any charges available for this tool!",
+                    "No Charges Left!",
+                    JOptionPane.WARNING_MESSAGE);
+        } else {
+            tool1Charge--;
+            JOptionPane.showMessageDialog(null, "You have successfully hacked and now have access to the system files folder, open the folder in the desktop to view the possible answers for the current question.");
+            isGameScreenOpen = true;
+            gameScreen.setVisible(false);
+            desktopScreen.setVisible(true);
+            
+            toolOneArrayOne = new ArrayList();
+            toolOneArrayTwo = new ArrayList();
+            
+            toolOneArrayOne.add(currentItem.getChoiceOne());
+            toolOneArrayOne.add(currentItem.getChoiceTwo());
+            toolOneArrayOne.add(currentItem.getChoiceThree());
+            toolOneArrayOne.add(currentItem.getChoiceFour());
+            
+            String correctAns = null;
+            String randomAns = null;
+            
+            if (currentItem.getCorrectChoice().equals("A")) {
+                correctAns = currentItem.getChoiceOne();
+            } else if (currentItem.getCorrectChoice().equals("B")) {
+                correctAns = currentItem.getChoiceTwo();
+            } else if (currentItem.getCorrectChoice().equals("C")) {
+                correctAns = currentItem.getChoiceThree();
+            } else if (currentItem.getCorrectChoice().equals("D")) {
+                correctAns = currentItem.getChoiceFour();
+            } 
+            
+            for (int i = 0; i < toolOneArrayOne.size(); i++) {
+                if (toolOneArrayOne.get(i).equals(correctAns)) {
+                    toolOneArrayOne.remove(i);
+                }
+            }
+            
+            int randomIndex = -1;
+            Random rand = new Random();
+            randomIndex = rand.nextInt(3);
+            
+            for (int i = 0; i < toolOneArrayOne.size(); i++) {
+                if (i == randomIndex) {
+                    randomAns = toolOneArrayOne.get(i);
+                    toolOneArrayOne.remove(i);
+                }
+            }
+            
+            randomIndex = rand.nextInt(2);
+            
+            if (randomIndex == 0) {
+                toolOneArrayTwo.add(correctAns);
+                toolOneArrayTwo.add(randomAns);
+            } else {
+                toolOneArrayTwo.add(randomAns);
+                toolOneArrayTwo.add(correctAns);
+            }
+            
+        }
     }//GEN-LAST:event_tool1ActionPerformed
 
     private void tool2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tool2ActionPerformed
@@ -2612,6 +2924,28 @@ public class MainForm extends javax.swing.JFrame {
         jobLabel2.setText(position.get(currentLevel));
     }//GEN-LAST:event_gameOverComponentShown
 
+    private void possibleAnswersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_possibleAnswersActionPerformed
+        // TODO add your handling code here:
+        systemFilesScreen.setVisible(false);
+        possibleAnswersScreen1.setVisible(true);
+    }//GEN-LAST:event_possibleAnswersActionPerformed
+
+    private void possibleAnswersScreen1ComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_possibleAnswersScreen1ComponentShown
+        // TODO add your handling code here:
+        posAnswer1.setText(toolOneArrayTwo.get(0));
+        posAnswer2.setText(toolOneArrayTwo.get(1));
+    }//GEN-LAST:event_possibleAnswersScreen1ComponentShown
+
+    private void backBtn7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backBtn7ActionPerformed
+        // TODO add your handling code here:
+        possibleAnswersScreen1.setVisible(false);
+        desktopScreen.setVisible(true);
+    }//GEN-LAST:event_backBtn7ActionPerformed
+
+    private void possibleAnswer1ComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_possibleAnswer1ComponentShown
+        // TODO add your handling code here:
+    }//GEN-LAST:event_possibleAnswer1ComponentShown
+
     /**
      * @param args the command line arguments
      */
@@ -2656,6 +2990,7 @@ public class MainForm extends javax.swing.JFrame {
     private javax.swing.JButton backBtn3;
     private javax.swing.JButton backBtn4;
     private javax.swing.JButton backBtn5;
+    private javax.swing.JButton backBtn7;
     private javax.swing.JButton choiceA;
     private javax.swing.JButton choiceB;
     private javax.swing.JButton choiceC;
@@ -2708,6 +3043,7 @@ public class MainForm extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel40;
     private javax.swing.JLabel jLabel41;
     private javax.swing.JLabel jLabel42;
+    private javax.swing.JLabel jLabel43;
     private javax.swing.JLabel jLabel44;
     private javax.swing.JLabel jLabel45;
     private javax.swing.JLabel jLabel46;
@@ -2716,13 +3052,21 @@ public class MainForm extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel49;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel50;
+    private javax.swing.JLabel jLabel51;
+    private javax.swing.JLabel jLabel52;
+    private javax.swing.JLabel jLabel53;
+    private javax.swing.JLabel jLabel54;
+    private javax.swing.JLabel jLabel55;
+    private javax.swing.JLabel jLabel56;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JLayeredPane jLayeredPane1;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel11;
+    private javax.swing.JPanel jPanel12;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
@@ -2742,6 +3086,11 @@ public class MainForm extends javax.swing.JFrame {
     private javax.swing.JPanel loginScreen;
     private javax.swing.JPanel photosPanel;
     private javax.swing.JButton playAgainBtn;
+    private javax.swing.JLabel posAnswer1;
+    private javax.swing.JLabel posAnswer2;
+    private javax.swing.JPanel possibleAnswer1;
+    private javax.swing.JButton possibleAnswers;
+    private javax.swing.JPanel possibleAnswersScreen1;
     private javax.swing.JButton programmingBtn1;
     private javax.swing.JButton programmingCategoriesSubmitBtn;
     private javax.swing.JTextArea questionLabel;
@@ -2758,6 +3107,7 @@ public class MainForm extends javax.swing.JFrame {
     private javax.swing.JButton soundBtn5;
     private javax.swing.JButton startBtn;
     private javax.swing.JButton sysFilesBtn;
+    private javax.swing.JPanel systemFilesScreen;
     private javax.swing.JPanel tProgChooserPanel;
     private javax.swing.JCheckBox tProgFour;
     private javax.swing.JCheckBox tProgOne;
